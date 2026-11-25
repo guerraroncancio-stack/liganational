@@ -109,93 +109,39 @@
   .nav-active{background:linear-gradient(180deg,#ef4444,#b91c1c) !important; color:#fff !important; border-color:transparent !important}
 
   .flag-shield {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 3 / 4;
+    position: relative; width: 100%; aspect-ratio: 3 / 4;
     background: linear-gradient(180deg, #1a0505 0%, #0a0101 100%);
     clip-path: polygon(50% 0%, 100% 15%, 100% 75%, 50% 100%, 0% 75%, 0% 15%);
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
     box-shadow: inset 0 0 60px rgba(239,68,68,.35), 0 10px 30px -10px rgba(239,68,68,.6);
     border: 2px solid rgba(239,68,68,.55);
   }
-  .flag-shield::before {
-    content: "";
-    position: absolute;
-    inset: 6px;
+  .flag-shield::before { content:""; position:absolute; inset:6px;
     clip-path: polygon(50% 0%, 100% 15%, 100% 75%, 50% 100%, 0% 75%, 0% 15%);
-    background: linear-gradient(180deg, rgba(239,68,68,.25) 0%, transparent 60%);
-    pointer-events: none;
-  }
-  .flag-shield::after {
-    content: "";
-    position: absolute;
-    inset: 0;
+    background: linear-gradient(180deg, rgba(239,68,68,.25) 0%, transparent 60%); pointer-events:none; }
+  .flag-shield::after { content:""; position:absolute; inset:0;
     clip-path: polygon(50% 0%, 100% 15%, 100% 75%, 50% 100%, 0% 75%, 0% 15%);
-    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 2px, transparent 2px 12px);
-    pointer-events: none;
-  }
-  .flag-shield-star {
-    position: absolute;
-    top: 8%;
-    left: 50%;
-    transform: translateX(-50%);
-    color: #ef4444;
-    filter: drop-shadow(0 0 12px rgba(239,68,68,.9));
-    font-size: 18px;
-  }
-  .flag-shield-text {
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 42px;
-    line-height: 0.9;
-    color: #fff;
-    letter-spacing: .05em;
-    text-shadow: 0 0 20px rgba(239,68,68,.9), 0 4px 6px rgba(0,0,0,.9);
-    text-align: center;
-    z-index: 2;
-  }
-  .flag-shield-sub {
-    font-family: 'Inter', sans-serif;
-    font-size: 8px;
-    font-weight: 900;
-    letter-spacing: .3em;
-    color: #fca5a5;
-    margin-top: 4px;
-    text-transform: uppercase;
-    z-index: 2;
-  }
-  .flag-shield-bottom {
-    position: absolute;
-    bottom: 8%;
-    left: 50%;
-    transform: translateX(-50%);
-    font-family: 'Bebas Neue', sans-serif;
-    font-size: 12px;
-    letter-spacing: .25em;
-    color: #fff;
-    background: rgba(239,68,68,.85);
-    padding: 2px 12px;
-    border-radius: 2px;
-    z-index: 2;
-  }
-  .flag-glow {
-    position: relative;
-    filter: drop-shadow(0 0 25px rgba(239,68,68,.6));
-    transition: transform .3s, filter .3s;
-  }
-  .flag-glow:hover {
-    transform: scale(1.04);
-    filter: drop-shadow(0 0 35px rgba(239,68,68,.9));
-  }
+    background-image: repeating-linear-gradient(45deg, rgba(255,255,255,.05) 0 2px, transparent 2px 12px); pointer-events:none; }
+  .flag-shield-star { position:absolute; top:8%; left:50%; transform:translateX(-50%);
+    color:#ef4444; filter:drop-shadow(0 0 12px rgba(239,68,68,.9)); font-size:18px; }
+  .flag-shield-text { font-family:'Bebas Neue',sans-serif; font-size:42px; line-height:.9;
+    color:#fff; letter-spacing:.05em; text-shadow:0 0 20px rgba(239,68,68,.9), 0 4px 6px rgba(0,0,0,.9);
+    text-align:center; z-index:2; }
+  .flag-shield-sub { font-family:'Inter',sans-serif; font-size:8px; font-weight:900;
+    letter-spacing:.3em; color:#fca5a5; margin-top:4px; text-transform:uppercase; z-index:2; }
+  .flag-shield-bottom { position:absolute; bottom:8%; left:50%; transform:translateX(-50%);
+    font-family:'Bebas Neue',sans-serif; font-size:12px; letter-spacing:.25em; color:#fff;
+    background:rgba(239,68,68,.85); padding:2px 12px; border-radius:2px; z-index:2; }
+  .flag-glow { position:relative; filter:drop-shadow(0 0 25px rgba(239,68,68,.6));
+    transition:transform .3s, filter .3s; }
+  .flag-glow:hover { transform:scale(1.04); filter:drop-shadow(0 0 35px rgba(239,68,68,.9)); }
 </style>
 </head>
 <body class="min-h-screen flex flex-col">
 
 <div id="toast-box" class="hidden fixed bottom-4 right-4 z-[100] px-4 py-3 rounded-xl shadow-2xl border text-xs font-bold"></div>
 
-<!-- ================= LOBBY ================= -->
+<!-- LOBBY -->
 <div id="view-lobby" class="fixed inset-0 z-50 flex items-center justify-center p-4">
   <div class="relative w-full max-w-xl text-center space-y-7 p-8 sm:p-12 rounded-3xl panel panel-red pulse-glow">
     <div class="flex justify-center">
@@ -227,7 +173,7 @@
   </div>
 </div>
 
-<!-- ================= MAIN APP ================= -->
+<!-- MAIN APP -->
 <div id="main-app" class="min-h-screen flex flex-col hidden">
   <header class="sticky top-0 z-40 bg-[#070203]/95 backdrop-blur-xl border-b border-white/5 shadow-2xl">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-3 pb-3 space-y-3">
@@ -294,7 +240,6 @@
 
   <main class="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 py-6 space-y-8">
 
-    <!-- =========== HOME =========== -->
     <section id="view-home" class="space-y-6">
       <div class="hero-slab p-6 sm:p-8">
         <div class="relative z-10 max-w-2xl space-y-3">
@@ -350,7 +295,6 @@
       </div>
     </section>
 
-    <!-- =========== ACTIVIDADES =========== -->
     <section id="view-activities" class="space-y-8 hidden">
       <div id="view-activities-container" class="space-y-8">
         <section id="section-activities" class="grid grid-cols-1 lg:grid-cols-3 gap-5">
@@ -438,7 +382,6 @@
       </div>
     </section>
 
-    <!-- =========== EQUIPOS =========== -->
     <section id="view-teams" class="space-y-6 hidden">
       <div class="panel p-5 space-y-4">
         <div class="flex items-center justify-between border-b border-white/5 pb-3">
@@ -492,10 +435,8 @@
           </table>
         </div>
       </div>
-      <div id="teams-list" class="space-y-2 hidden"></div>
     </section>
 
-    <!-- =========== JUGADORES =========== -->
     <section id="view-players" class="space-y-5 hidden">
       <div class="panel p-5 space-y-4">
         <div class="flex items-center justify-between border-b border-white/5 pb-3">
@@ -546,7 +487,6 @@
       </div>
     </section>
 
-    <!-- =========== TORNEOS =========== -->
     <section id="view-tournaments" class="space-y-5 hidden">
       <div class="panel p-5 space-y-4">
         <div class="flex items-center justify-between border-b border-white/5 pb-3">
@@ -577,7 +517,6 @@
       </div>
     </section>
 
-    <!-- =========== RESULTADOS =========== -->
     <section id="view-results" class="space-y-5 hidden">
       <div class="panel p-5 space-y-4">
         <div class="flex items-center justify-between border-b border-white/5 pb-3">
@@ -606,7 +545,6 @@
       </div>
     </section>
 
-    <!-- =========== RANKINGS =========== -->
     <section id="view-rankings" class="space-y-5 hidden">
       <div class="panel p-5 space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-3">
@@ -635,7 +573,6 @@
       </div>
     </section>
 
-    <!-- =========== SANCIONES =========== -->
     <section id="view-sanctions" class="space-y-5 hidden">
       <div class="panel p-5 space-y-4">
         <div class="flex items-center justify-between border-b border-white/5 pb-3">
@@ -662,7 +599,6 @@
       </div>
     </section>
 
-    <!-- =========== NOTICIAS =========== -->
     <section id="view-news" class="space-y-5 hidden">
       <div class="panel p-5 space-y-4">
         <div class="flex items-center justify-between border-b border-white/5 pb-3">
@@ -680,7 +616,6 @@
       <div id="news-list" class="space-y-3"></div>
     </section>
 
-    <!-- =========== VIP =========== -->
     <section id="view-vip" class="space-y-6 hidden">
       <div id="view-vip-container" class="space-y-6">
         <section id="vip-restricted-box" class="panel panel-red p-8 text-center space-y-4">
@@ -770,7 +705,6 @@
       </div>
     </section>
 
-    <!-- =========== STAFF CHAT =========== -->
     <section id="view-staff-chat" class="space-y-6 hidden">
       <div id="view-staff-chat-container">
         <section class="panel panel-red p-6 space-y-4">
@@ -799,7 +733,6 @@
       </div>
     </section>
 
-    <!-- =========== GENERAL CHAT =========== -->
     <section id="view-general-chat" class="space-y-6 hidden">
       <div id="view-general-chat-container">
         <section class="panel p-6 space-y-4">
@@ -821,7 +754,6 @@
       </div>
     </section>
 
-    <!-- =========== REGISTRO =========== -->
     <section id="view-register" class="space-y-6 hidden">
       <div id="view-register-container">
         <section class="panel panel-red p-6 space-y-5">
@@ -849,7 +781,6 @@
       </div>
     </section>
 
-    <!-- =========== ADMIN PANEL =========== -->
     <section id="view-admin" class="space-y-5 hidden">
       <div id="admin-locked" class="panel panel-red p-8 text-center space-y-4">
         <div class="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-red-950/60 border border-red-500/40 text-2xl">🔒</div>
@@ -884,7 +815,6 @@
       </div>
     </section>
 
-    <!-- =========== LIVE FEED =========== -->
     <section class="panel p-4 space-y-3">
       <div class="flex flex-wrap items-center justify-between gap-2">
         <h3 class="text-xs font-black uppercase tracking-[0.15em] text-red-500">Registro en vivo</h3>
@@ -900,7 +830,7 @@
   </main>
 </div>
 
-<!-- ROLE MODAL -->
+<!-- MODALES -->
 <div id="role-modal" class="hidden fixed inset-0 z-[90] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
   <div class="w-full max-w-md panel panel-red p-6 space-y-4">
     <div class="flex items-start justify-between gap-2">
@@ -917,7 +847,6 @@
   </div>
 </div>
 
-<!-- ADMIN LOGIN MODAL -->
 <div id="admin-modal" class="hidden fixed inset-0 z-[95] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
   <div class="w-full max-w-md panel panel-red p-6 space-y-4">
     <div class="flex items-start justify-between gap-2">
@@ -933,7 +862,6 @@
   </div>
 </div>
 
-<!-- JOIN ACTIVITY MODAL -->
 <div id="join-activity-modal" class="hidden fixed inset-0 z-[95] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
   <div class="w-full max-w-md panel panel-red p-6 space-y-4">
     <div class="flex items-start justify-between gap-2">
@@ -944,25 +872,12 @@
       </div>
       <button type="button" onclick="closeJoinActivityModal()" class="btn btn-ghost btn-sm text-slate-300">✕</button>
     </div>
-
     <form id="join-activity-form" onsubmit="handleConfirmJoinActivity(event)" class="space-y-3">
-      <div>
-        <label class="field-label">Nombre del equipo / jugador *</label>
-        <input id="join-team-name" required class="input-base" placeholder="Ej: NORTE TITAN ESPORTS" />
-      </div>
-      <div>
-        <label class="field-label">Capitán / Responsable *</label>
-        <input id="join-captain" required class="input-base" placeholder="Nombre del capitán" />
-      </div>
-      <div>
-        <label class="field-label">Teléfono WhatsApp *</label>
-        <input id="join-phone" type="tel" required class="input-base" placeholder="+507 6000-0000" />
-      </div>
+      <div><label class="field-label">Nombre del equipo / jugador *</label><input id="join-team-name" required class="input-base" placeholder="Ej: NORTE TITAN ESPORTS" /></div>
+      <div><label class="field-label">Capitán / Responsable *</label><input id="join-captain" required class="input-base" placeholder="Nombre del capitán" /></div>
+      <div><label class="field-label">Teléfono WhatsApp *</label><input id="join-phone" type="tel" required class="input-base" placeholder="+507 6000-0000" /></div>
       <div id="join-payment-fields" class="space-y-3">
-        <div>
-          <label class="field-label">Comprobante / Referencia de pago *</label>
-          <input id="join-payment-ref" class="input-base" placeholder="Yappy / Transferencia / Folio" />
-        </div>
+        <div><label class="field-label">Comprobante / Referencia de pago *</label><input id="join-payment-ref" class="input-base" placeholder="Yappy / Transferencia / Folio" /></div>
         <div class="p-3 rounded-xl bg-black/50 border border-white/5 flex items-center justify-between">
           <div>
             <p class="text-[11px] text-slate-400">Contraseña asignada:</p>
@@ -976,7 +891,6 @@
       </div>
       <button type="submit" class="btn btn-primary w-full py-2.5">✅ Confirmar y entrar al grupo</button>
     </form>
-
     <div id="join-success-box" class="hidden space-y-3">
       <div class="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/30 text-center space-y-1">
         <p class="text-xs font-bold text-emerald-400">¡Registro exitoso!</p>
@@ -989,7 +903,6 @@
   </div>
 </div>
 
-<!-- TEAM PORTAL MODAL -->
 <div id="team-portal-modal" class="hidden fixed inset-0 z-[95] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
   <div class="w-full max-w-2xl panel panel-red p-6 space-y-4 max-h-[90vh] overflow-y-auto">
     <div class="flex items-start justify-between gap-2">
@@ -1000,12 +913,12 @@
   </div>
 </div>
 
-<!-- ================= FIREBASE SDK ================= -->
+<!-- FIREBASE SDK (módulo) -->
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
   import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
-  import { getFirestore, doc, onSnapshot, setDoc }
+  import { getFirestore, doc, onSnapshot, setDoc, getDoc }
     from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
 
   const firebaseConfig = {
@@ -1020,19 +933,19 @@
 
   const app = initializeApp(firebaseConfig);
   const auth = getAuth(app);
-  const db = getFirestore(app);
+  const db  = getFirestore(app);
 
   window.FB = { app, auth, db,
     signInWithEmailAndPassword, signOut, onAuthStateChanged,
-    doc, onSnapshot, setDoc
+    doc, onSnapshot, setDoc, getDoc
   };
 
   window.dispatchEvent(new Event('firebase-ready'));
 </script>
 
-<!-- ================= APP LOGIC ================= -->
+<!-- APP LOGIC -->
 <script>
-/* ===================== ROLES ===================== */
+/* ============ ROLES ============ */
 const ROLE_PASSWORDS = {
   'CREADOR-OGR':'CREADOR','ADMIN-OGR':'ADMIN','STAFF-OGR':'STAFF','VIP-PIN':'VIP','CREADORVIP-OGR':'CREADOR VIP'
 };
@@ -1041,11 +954,10 @@ let activeRoles = [];
 let currentRole = 'PÚBLICO';
 let currentTab = 'home';
 let registeredProfile = null;
-
-/* ===================== ADMIN SESSION ===================== */
 let currentAdmin = null;
+let appReady = false; // 🔑 flag clave para no renderizar antes de tiempo
 
-/* ===================== STORAGE (localStorage + Firestore en vivo) ===================== */
+/* ============ STORAGE ============ */
 function DB_load(k, fb){
   try{ const r = localStorage.getItem('nt_'+k); return r ? JSON.parse(r) : fb; }catch(e){ return fb; }
 }
@@ -1053,10 +965,9 @@ function DB_save(k, v){
   try{ localStorage.setItem('nt_'+k, JSON.stringify(v)); }catch(e){}
   syncToFirestore(k, v);
 }
-
 async function syncToFirestore(key, value){
   if(!window.FB || !window.FB.db) return;
-  if(key === 'session') return; // sesión la maneja Firebase Auth
+  if(key === 'session') return;
   const { db, doc, setDoc } = window.FB;
   try{
     if(key === 'chatRooms'){
@@ -1065,11 +976,11 @@ async function syncToFirestore(key, value){
       await setDoc(doc(db, 'meta', key), { items: value, updatedAt: Date.now() }, { merge:true });
     }
   }catch(err){
-    console.warn('Firestore sync error ['+key+']:', err);
+    console.warn('Firestore sync error ['+key+']:', err?.message || err);
   }
 }
 
-/* ===================== DATOS PERSISTENTES ===================== */
+/* ============ DATOS ============ */
 let teams = DB_load('teams', [
   { id:'t1', name:'NORTE TITAN ESPORTS', tag:'NTE', kills:42, booyahs:2, posPoints:34 },
   { id:'t2', name:'CRIMSON WOLVES', tag:'CW', kills:35, booyahs:1, posPoints:28 },
@@ -1109,7 +1020,7 @@ function saveAll(){
   DB_save('directRegistrations', directRegistrations);
 }
 
-/* ===================== LIVE SYNC ===================== */
+/* ============ LIVE SYNC ============ */
 function initLiveSync(){
   if(!window.FB || !window.FB.db){ setTimeout(initLiveSync, 300); return; }
   const { db, doc, onSnapshot } = window.FB;
@@ -1117,10 +1028,10 @@ function initLiveSync(){
   const subscribe = (key, applyFn) => {
     onSnapshot(doc(db, 'meta', key), snap => {
       if(!snap.exists()) return;
-      const data = snap.data();
+      const data = snap.data() || {};
       if(applyFn) applyFn(data);
-      renderAll();
-    }, err => console.warn('snapshot error', key, err));
+      if(appReady) safeRenderAll();
+    }, err => console.warn('snapshot error', key, err?.message || err));
   };
 
   subscribe('teams',              d => { if(Array.isArray(d.items)) teams = d.items; });
@@ -1139,19 +1050,20 @@ function initLiveSync(){
   onSnapshot(doc(db, 'meta', 'chatRooms'), snap => {
     if(!snap.exists()) return;
     chatRooms = snap.data();
-    renderChatRooms();
-    renderAll();
+    if(appReady){ renderChatRooms(); safeRenderAll(); }
   });
 
   const ind = document.getElementById('live-indicator');
   if(ind) ind.innerHTML = '<span class="dot" style="background:#10b981; box-shadow:0 0 8px #10b981;"></span> En vivo';
   console.log('✅ Live sync activo (Firestore onSnapshot)');
 }
-
+function safeRenderAll(){
+  try{ renderAll(); }catch(err){ console.warn('renderAll error:', err?.message || err); }
+}
 window.addEventListener('firebase-ready', initLiveSync);
 if(window.FB) initLiveSync();
 
-/* ===================== HELPERS ===================== */
+/* ============ HELPERS ============ */
 function uid(p){ return p+'-'+Date.now()+'-'+Math.random().toString(36).slice(2,6); }
 function readFileAsDataURL(file){
   return new Promise((resolve, reject)=>{
@@ -1163,7 +1075,7 @@ function readFileAsDataURL(file){
   });
 }
 function showToast(msg, type='success'){
-  const box = document.getElementById('toast-box');
+  const box = document.getElementById('toast-box'); if(!box) return;
   box.textContent = msg;
   box.className = 'fixed bottom-4 right-4 z-[100] px-4 py-3 rounded-xl shadow-2xl border text-xs font-bold toast-anim ' +
     (type==='error' ? 'bg-rose-950/95 border-rose-500/70 text-rose-100' : 'bg-red-950/95 border-red-500/70 text-white');
@@ -1191,7 +1103,7 @@ function canAccessStaffOrgChat(){ return hasRole('STAFF') || hasRole('CREADOR') 
 function canCreateVipActivities(){ return hasRole('CREADOR VIP'); }
 function canAdmin(){ return !!currentAdmin; }
 
-/* ===================== LOBBY & NAV ===================== */
+/* ============ LOBBY & NAV ============ */
 function enterPlatformFromLobby(){
   document.getElementById('view-lobby').classList.add('hidden');
   document.getElementById('main-app').classList.remove('hidden');
@@ -1225,13 +1137,12 @@ function switchTab(tab){
       if(v===tab) btn.classList.add('nav-active');
     }
   });
-  renderAll();
+  safeRenderAll();
 }
 
-/* ===================== ADMIN LOGIN (Firebase Auth) ===================== */
+/* ============ ADMIN LOGIN ============ */
 function openAdminLogin(){ document.getElementById('admin-modal').classList.remove('hidden'); }
 function closeAdminLogin(){ document.getElementById('admin-modal').classList.add('hidden'); }
-
 async function handleAdminLogin(e){
   e.preventDefault();
   if(!window.FB){ showToast('Firebase aún cargando, intenta de nuevo.', 'error'); return; }
@@ -1241,7 +1152,7 @@ async function handleAdminLogin(e){
     const cred = await window.FB.signInWithEmailAndPassword(window.FB.auth, email, pass);
     const role = email.includes('admin') ? 'ADMIN' : 'STAFF';
     currentAdmin = { email: cred.user.email, uid: cred.user.uid, role };
-    closeAdminLogin(); updateRoleUI(); renderAll(); switchTab('admin');
+    closeAdminLogin(); updateRoleUI(); safeRenderAll(); switchTab('admin');
     showToast('Bienvenido, ' + role);
   }catch(err){
     console.error(err);
@@ -1251,10 +1162,9 @@ async function handleAdminLogin(e){
 async function logoutAdmin(){
   if(window.FB){ try{ await window.FB.signOut(window.FB.auth); }catch(e){} }
   currentAdmin = null;
-  updateRoleUI(); renderAll();
+  updateRoleUI(); safeRenderAll();
   showToast('Sesión cerrada.');
 }
-
 function wireAuthState(){
   if(!window.FB){ setTimeout(wireAuthState, 300); return; }
   window.FB.onAuthStateChanged(window.FB.auth, user => {
@@ -1265,12 +1175,12 @@ function wireAuthState(){
     } else {
       currentAdmin = null;
     }
-    updateRoleUI(); renderAll();
+    updateRoleUI(); if(appReady) safeRenderAll();
   });
 }
 wireAuthState();
 
-/* ===================== ROLES POR CÓDIGO ===================== */
+/* ============ ROLES CÓDIGO ============ */
 function openRoleModal(){ document.getElementById('role-code-input').value=''; document.getElementById('role-modal').classList.remove('hidden'); document.getElementById('role-code-input').focus(); }
 function closeRoleModal(){ document.getElementById('role-modal').classList.add('hidden'); }
 function handleVerifyRoleCode(e){
@@ -1282,7 +1192,7 @@ function handleVerifyRoleCode(e){
   syncPrimaryRole();
   updateRoleUI(); closeRoleModal();
   pushFeed(`activó el rango ${granted} (Rangos: ${getActiveRankLabel()}).`, { requireRank:true, includeRankTag:true });
-  renderAll(); renderChatRooms();
+  safeRenderAll(); renderChatRooms();
   showToast(`Rango ${granted} agregado.`);
 }
 function updateRoleUI(){
@@ -1296,12 +1206,12 @@ function updateRoleUI(){
   else badge.className='tag tag-purple';
   const creatorBar = document.getElementById('creator-command-bar');
   const creatorSec = document.getElementById('section-creator');
-  if(hasCreatorOrAdminRole()){ creatorBar?.classList.remove('hidden'); creatorSec?.classList.remove('hidden'); }
-  else { creatorBar?.classList.add('hidden'); creatorSec?.classList.add('hidden'); }
+  if(hasCreatorOrAdminRole()){ if(creatorBar) creatorBar.classList.remove('hidden'); if(creatorSec) creatorSec.classList.remove('hidden'); }
+  else { if(creatorBar) creatorBar.classList.add('hidden'); if(creatorSec) creatorSec.classList.add('hidden'); }
   updateLiveFeedFormUI(); updateVipAccessUI(); renderChatRooms();
 }
 
-/* ===================== LIVE FEED ===================== */
+/* ============ LIVE FEED ============ */
 function updateLiveFeedFormUI(){
   const form = document.getElementById('live-feed-form');
   const note = document.getElementById('live-feed-permission-note');
@@ -1324,7 +1234,7 @@ function handlePostLiveFeedMessage(e){
   const fullName = getUserDisplayName();
   const speakerLabel = fullName ? `${fullName} (${getActiveRankLabel()})` : getActiveRankLabel();
   pushFeed(`${speakerLabel} dijo: "${msg}".`, { requireRank:true });
-  input.value=''; renderAll();
+  input.value=''; safeRenderAll();
 }
 function pushFeed(text, options={}){
   const { requireRank=false, includeRankTag=false } = options;
@@ -1336,7 +1246,7 @@ function pushFeed(text, options={}){
   DB_save('liveFeed', liveFeed);
 }
 
-/* ===================== CHATS ===================== */
+/* ============ CHATS ============ */
 function renderChatRooms(){
   const vipLocked = document.getElementById('chat-vip-locked');
   const vipUnlocked = document.getElementById('chat-vip-unlocked');
@@ -1394,7 +1304,7 @@ function handleSendChatMessage(e, roomKey){
   renderChatRooms();
 }
 
-/* ===================== REGISTRO USUARIO ===================== */
+/* ============ REGISTRO USUARIO ============ */
 function handleUserRegistration(e){
   e.preventDefault();
   const fn = document.getElementById('reg-first-name').value.trim();
@@ -1407,7 +1317,7 @@ function handleUserRegistration(e){
   const greet = document.getElementById('general-chat-greeting');
   if(greet) greet.textContent = `Hola ${fn} ${ln}, este es el canal general.`;
   pushFeed(`registró a ${fn} ${ln} (${em}).`, { requireRank:true, includeRankTag:true });
-  saveAll(); renderRegisteredUsers(); renderChatRooms(); renderAll();
+  saveAll(); renderRegisteredUsers(); renderChatRooms(); safeRenderAll();
   showToast(`Bienvenido/a ${fn} ${ln}.`);
 }
 function renderRegisteredUsers(){
@@ -1423,7 +1333,7 @@ function renderRegisteredUsers(){
     </div>`).join('');
 }
 
-/* ===================== VIP ===================== */
+/* ============ VIP ============ */
 function updateVipAccessUI(){
   const restricted = document.getElementById('vip-restricted-box');
   const unlocked = document.getElementById('vip-unlocked-box');
@@ -1453,7 +1363,7 @@ function handleCreateVipActivity(e){
   if(!groupLink){ showToast('Define el link del grupo VIP.', 'error'); return; }
   vipActivities.unshift({ id:'vip-act-'+Date.now(), title, type, date, time, fee, prize, groupLink, enrolledTeams:[] });
   document.getElementById('vip-act-title').value=''; document.getElementById('vip-team-link').value='';
-  saveAll(); renderVipActivities(); renderAll();
+  saveAll(); renderVipActivities(); safeRenderAll();
   showToast('Actividad VIP creada.');
 }
 function joinVipActivity(actId){
@@ -1494,10 +1404,10 @@ function claimVipPass(label){
   const display = document.getElementById('vip-generated-code');
   if(display) display.textContent = `Clave VIP (${label}): ${code}`;
   pushFeed(`generó clave VIP (${label}) con rango ${getActiveRankLabel()}.`, { requireRank:true, includeRankTag:true });
-  renderAll(); showToast(`Clave generada: ${code}`);
+  safeRenderAll(); showToast(`Clave generada: ${code}`);
 }
 
-/* ===================== ACTIVIDADES ===================== */
+/* ============ ACTIVIDADES ============ */
 function handleCreateActivity(e){
   e.preventDefault();
   if(!hasCreatorOrAdminRole()){ showToast('Solo CREADOR/ADMIN.', 'error'); return; }
@@ -1513,7 +1423,7 @@ function handleCreateActivity(e){
   activities.unshift(newAct);
   pushFeed(`creó "${newAct.title}" en ${placement} con grupo WhatsApp.`, { requireRank:true, includeRankTag:true });
   document.getElementById('act-title').value=''; document.getElementById('act-team-link').value='';
-  saveAll(); renderAll(); showToast(`Actividad publicada en ${placement}.`);
+  saveAll(); safeRenderAll(); showToast(`Actividad publicada en ${placement}.`);
 }
 function handlePlacementChange(placement){
   const feeInput = document.getElementById('act-fee');
@@ -1525,7 +1435,7 @@ function handlePlacementChange(placement){
 function deleteActivity(actId){
   if(!hasAnyManagerRole()){ showToast('Sin permiso.', 'error'); return; }
   activities = activities.filter(a=>a.id!==actId);
-  saveAll(); renderAll(); showToast('Actividad eliminada.');
+  saveAll(); safeRenderAll(); showToast('Actividad eliminada.');
 }
 function generateRandomPassword(placement){
   const prefix = placement==='RELAMPAGO' ? 'RLP' : 'TRN';
@@ -1534,7 +1444,7 @@ function generateRandomPassword(placement){
   return `${prefix}-${letters}-${digits}`;
 }
 
-/* ===================== JOIN ACTIVITY ===================== */
+/* ============ JOIN ACTIVITY ============ */
 function handleJoinActivity(actId){
   const act = activities.find(a=>a.id===actId); if(!act) return;
   activeJoinActivityId = act.id;
@@ -1586,11 +1496,11 @@ function handleConfirmJoinActivity(e){
   if(act.groupLink){ waLink.href = act.groupLink; waLink.classList.remove('hidden'); }
   else { waLink.classList.add('hidden'); showToast('La organización no definió link de WhatsApp.', 'error'); }
   document.getElementById('join-success-box').classList.remove('hidden');
-  saveAll(); renderAll();
+  saveAll(); safeRenderAll();
   showToast(`¡Registrado en "${act.title}"!`);
 }
 
-/* ===================== REGISTROS DIRECTOS ===================== */
+/* ============ REGISTROS DIRECTOS ============ */
 function renderDirectRegistrations(){
   const container = document.getElementById('direct-registrations-panel');
   if(!container) return;
@@ -1617,7 +1527,7 @@ function renderDirectRegistrations(){
     </div>`;
 }
 
-/* ===================== EQUIPOS ===================== */
+/* ============ EQUIPOS ============ */
 async function handleRegisterTeam(e){
   e.preventDefault();
   if(!currentAdmin){ showToast('Inicia sesión como STAFF/ADMIN.', 'error'); return; }
@@ -1635,7 +1545,7 @@ async function handleRegisterTeam(e){
     logo, kills:0, booyahs:0, posPoints:0, createdAt: Date.now()
   };
   if(!team.name || !team.tag || !team.country){ showToast('Completa nombre, tag y país.', 'error'); return; }
-  teams.unshift(team); saveAll(); renderAll();
+  teams.unshift(team); saveAll(); safeRenderAll();
   e.target.reset();
   showToast('Equipo ' + team.name + ' registrado.');
 }
@@ -1649,20 +1559,20 @@ function handleAddTeam(e){
   teams.push({ id:'t-'+Date.now(), name, tag: tag || name.substring(0,3), phone, kills:0, booyahs:0, posPoints:0 });
   document.getElementById('new-team-name').value=''; document.getElementById('new-team-tag').value=''; document.getElementById('new-team-phone').value='';
   pushFeed(`registró el equipo ${name} (Tel: ${phone}).`, { requireRank:true, includeRankTag:true });
-  saveAll(); renderAll(); showToast(`Equipo ${name} agregado.`);
+  saveAll(); safeRenderAll(); showToast(`Equipo ${name} agregado.`);
 }
 function addTeamKills(teamId, delta){
   const t = teams.find(i=>i.id===teamId); if(!t) return;
   t.kills += delta;
   pushFeed(`sumó +${delta} kills al equipo ${t.name}.`, { requireRank:true, includeRankTag:true });
-  saveAll(); renderAll();
+  saveAll(); safeRenderAll();
 }
 function deleteTeam(teamId){
   if(!hasAnyManagerRole() && !currentAdmin){ showToast('Sin permiso.', 'error'); return; }
   const t = teams.find(i=>i.id===teamId); if(!t) return;
   teams = teams.filter(i=>i.id!==teamId);
   pushFeed(`eliminó el equipo [${t.tag}] ${t.name}.`, { requireRank:true, includeRankTag:true });
-  saveAll(); renderAll(); showToast(`Equipo ${t.name} eliminado.`);
+  saveAll(); safeRenderAll(); showToast(`Equipo ${t.name} eliminado.`);
 }
 function openTeamPortal(id){
   const t = teams.find(x=>x.id===id); if(!t) return;
@@ -1694,7 +1604,7 @@ function openTeamPortal(id){
 }
 function closeTeamPortal(){ document.getElementById('team-portal-modal').classList.add('hidden'); }
 
-/* ===================== JUGADORES ===================== */
+/* ============ JUGADORES ============ */
 async function handleRegisterPlayer(e){
   e.preventDefault();
   if(!currentAdmin){ showToast('Inicia sesión.', 'error'); return; }
@@ -1711,16 +1621,16 @@ async function handleRegisterPlayer(e){
     role: document.getElementById('pl-role').value,
     photo, ffShot, verified:false, createdAt: Date.now()
   };
-  players.unshift(p); saveAll(); renderAll();
+  players.unshift(p); saveAll(); safeRenderAll();
   e.target.reset(); showToast('Jugador ' + p.nick + ' registrado.');
 }
 function verifyPlayer(id){
   if(!currentAdmin){ showToast('Inicia sesión.', 'error'); return; }
   const p = players.find(x=>x.id===id); if(!p) return;
-  p.verified = true; saveAll(); renderAll(); showToast('Jugador verificado.');
+  p.verified = true; saveAll(); safeRenderAll(); showToast('Jugador verificado.');
 }
 
-/* ===================== TORNEOS ===================== */
+/* ============ TORNEOS ============ */
 function handleCreateTournament(e){
   e.preventDefault();
   if(!currentAdmin){ showToast('Inicia sesión.', 'error'); return; }
@@ -1735,12 +1645,12 @@ function handleCreateTournament(e){
     rules: document.getElementById('t-rules').value.trim(),
     approvedTeams: [], createdAt: Date.now()
   };
-  tournaments.unshift(t); saveAll(); renderAll();
+  tournaments.unshift(t); saveAll(); safeRenderAll();
   e.target.reset();
   showToast('Torneo creado.');
 }
 
-/* ===================== RESULTADOS ===================== */
+/* ============ RESULTADOS ============ */
 function handleAddResult(e){
   e.preventDefault();
   if(!currentAdmin){ showToast('Inicia sesión.', 'error'); return; }
@@ -1753,15 +1663,15 @@ function handleAddResult(e){
   const booyah = pos===1 ? 1 : 0;
   const total = posPts + kills + (booyah?3:0);
   results.unshift({ id: uid('res'), tournamentId, teamId, pos, kills, posPoints: posPts, booyah, total, notes, createdAt: Date.now() });
-  saveAll(); renderAll();
+  saveAll(); safeRenderAll();
   e.target.reset();
   showToast('Resultado registrado.');
 }
 
-/* ===================== RANKINGS ===================== */
-function renderRankings(){ renderAll(); }
+/* ============ RANKINGS ============ */
+function renderRankings(){ safeRenderAll(); }
 
-/* ===================== SANCIONES ===================== */
+/* ============ SANCIONES ============ */
 function handleCreateSanction(e){
   e.preventDefault();
   if(!currentAdmin && !hasAnyManagerRole()){ showToast('Sin permiso.', 'error'); return; }
@@ -1774,12 +1684,12 @@ function handleCreateSanction(e){
     appeal: document.getElementById('san-appeal').value.trim(),
     createdAt: Date.now()
   };
-  sanctions.unshift(s); saveAll(); renderAll();
+  sanctions.unshift(s); saveAll(); safeRenderAll();
   e.target.reset();
   showToast('Sanción registrada.');
 }
 
-/* ===================== NOTICIAS ===================== */
+/* ============ NOTICIAS ============ */
 function handleCreateNews(e){
   e.preventDefault();
   if(!currentAdmin && !hasAnyManagerRole()){ showToast('Sin permiso.', 'error'); return; }
@@ -1790,12 +1700,12 @@ function handleCreateNews(e){
     body: document.getElementById('news-body').value.trim(),
     createdAt: Date.now()
   };
-  news.unshift(n); saveAll(); renderAll();
+  news.unshift(n); saveAll(); safeRenderAll();
   e.target.reset();
   showToast('Noticia publicada.');
 }
 
-/* ===================== CREATOR CMD ===================== */
+/* ============ CREATOR CMD ============ */
 function runCreatorCommand(cmd){
   if(!hasCreatorOrAdminRole()){ showToast('Solo CREADOR/ADMIN.', 'error'); return; }
   const c = String(cmd||'').toUpperCase().trim();
@@ -1809,16 +1719,14 @@ function runCreatorCommand(cmd){
   showToast('Comando aplicado: '+c);
 }
 
-/* ===================== RENDER ALL ===================== */
+/* ============ RENDER ALL ============ */
 function renderAll(){
   try{
-    // stats home
     const sT = document.getElementById('stat-tournaments'); if(sT) sT.textContent = tournaments.length;
     const sTe = document.getElementById('stat-teams'); if(sTe) sTe.textContent = teams.length;
     const sP = document.getElementById('stat-players'); if(sP) sP.textContent = players.length;
     const sS = document.getElementById('stat-sanctions'); if(sS) sS.textContent = sanctions.length;
 
-    // home tournaments
     const homeT = document.getElementById('home-tournaments');
     if(homeT){
       homeT.innerHTML = tournaments.slice(0,3).map(t=>`
@@ -1829,7 +1737,6 @@ function renderAll(){
         </div>`).join('') || '<p class="text-slate-500 text-xs">Sin torneos creados.</p>';
     }
 
-    // home ranking top5
     const homeR = document.getElementById('home-ranking');
     if(homeR){
       const sorted = [...teams].sort((a,b)=> (b.kills+b.booyahs*3+b.posPoints) - (a.kills+a.booyahs*3+a.posPoints)).slice(0,5);
@@ -1840,7 +1747,6 @@ function renderAll(){
         </div>`).join('') || '<p class="text-slate-500">Sin equipos.</p>';
     }
 
-    // home results
     const homeRes = document.getElementById('home-results');
     if(homeRes){
       homeRes.innerHTML = results.slice(0,4).map(r=>{
@@ -1851,7 +1757,6 @@ function renderAll(){
       }).join('') || '<p class="text-slate-500">Sin resultados.</p>';
     }
 
-    // home news
     const homeN = document.getElementById('home-news');
     if(homeN){
       homeN.innerHTML = news.slice(0,3).map(n=>`
@@ -1861,7 +1766,6 @@ function renderAll(){
         </div>`).join('') || '<p class="text-slate-500">Sin noticias.</p>';
     }
 
-    // activities lists
     ['RELAMPAGO','TORNEO','XT ENTRENOS'].forEach(pl=>{
       const id = pl==='RELAMPAGO'?'list-relampago':pl==='TORNEO'?'list-torneo':'list-entrenos';
       const cId = pl==='RELAMPAGO'?'count-relampago':pl==='TORNEO'?'count-torneo':'count-entrenos';
@@ -1884,7 +1788,6 @@ function renderAll(){
         </div>`).join('') || '<p class="text-xs text-slate-500">Sin actividades.</p>';
     });
 
-    // ranking tbody
     const rT = document.getElementById('ranking-tbody');
     if(rT){
       const sorted = [...teams].sort((a,b)=> (b.kills+b.booyahs*3+b.posPoints) - (a.kills+a.booyahs*3+a.posPoints));
@@ -1903,19 +1806,15 @@ function renderAll(){
       }).join('') || '<tr><td colspan="7" class="text-center text-slate-500 py-4">Sin equipos.</td></tr>';
     }
 
-    // teams count
     const teamsCount = document.getElementById('teams-count'); if(teamsCount) teamsCount.textContent = `${teams.length} equipos`;
 
-    // pl-team select
     const plTeam = document.getElementById('pl-team');
     if(plTeam){
       plTeam.innerHTML = '<option value="">Selecciona...</option>' + teams.map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
     }
 
-    // players count
     const playersCount = document.getElementById('players-count'); if(playersCount) playersCount.textContent = `${players.length} jugadores`;
 
-    // players tbody
     const pT = document.getElementById('players-tbody');
     if(pT){
       pT.innerHTML = players.map(p=>{
@@ -1932,10 +1831,8 @@ function renderAll(){
       }).join('') || '<tr><td colspan="7" class="text-center text-slate-500 py-4">Sin jugadores.</td></tr>';
     }
 
-    // tournaments count
     const tCount = document.getElementById('tournaments-count'); if(tCount) tCount.textContent = `${tournaments.length} torneos`;
 
-    // tournaments list
     const tList = document.getElementById('tournaments-list');
     if(tList){
       tList.innerHTML = tournaments.map(t=>`
@@ -1948,13 +1845,11 @@ function renderAll(){
         </div>`).join('') || '<p class="p-4 text-slate-500 text-xs">Sin torneos.</p>';
     }
 
-    // res-tournament & res-team selects
     const resT = document.getElementById('res-tournament');
     if(resT){ resT.innerHTML = '<option value="">Selecciona...</option>' + tournaments.map(t=>`<option value="${t.id}">${t.name}</option>`).join(''); }
     const resTeam = document.getElementById('res-team');
     if(resTeam){ resTeam.innerHTML = '<option value="">Selecciona...</option>' + teams.map(t=>`<option value="${t.id}">${t.name}</option>`).join(''); }
 
-    // results tbody
     const resBody = document.getElementById('results-tbody');
     if(resBody){
       resBody.innerHTML = results.map(r=>{
@@ -1973,7 +1868,6 @@ function renderAll(){
       }).join('') || '<tr><td colspan="8" class="text-center text-slate-500 py-4">Sin resultados.</td></tr>';
     }
 
-    // rankings tbody
     const rkT = document.getElementById('rankings-tbody');
     if(rkT){
       const sorted = [...teams].sort((a,b)=> (b.kills+b.booyahs*3+b.posPoints) - (a.kills+a.booyahs*3+a.posPoints));
@@ -1992,7 +1886,6 @@ function renderAll(){
       }).join('') || '<tr><td colspan="7" class="text-center text-slate-500 py-4">Sin datos.</td></tr>';
     }
 
-    // sanctions
     const sanCount = document.getElementById('sanctions-count'); if(sanCount) sanCount.textContent = `${sanctions.length} sanciones`;
     const sanTeamSel = document.getElementById('san-team');
     if(sanTeamSel){ sanTeamSel.innerHTML = '<option value="">Selecciona...</option>' + teams.map(t=>`<option value="${t.id}">${t.name}</option>`).join(''); }
@@ -2011,7 +1904,6 @@ function renderAll(){
       }).join('') || '<p class="p-4 text-slate-500 text-xs">Sin sanciones.</p>';
     }
 
-    // news list
     const newsList = document.getElementById('news-list');
     if(newsList){
       newsList.innerHTML = news.map(n=>`
@@ -2022,7 +1914,6 @@ function renderAll(){
         </div>`).join('') || '<p class="text-slate-500 text-xs">Sin noticias.</p>';
     }
 
-    // admin
     const adminLocked = document.getElementById('admin-locked');
     const adminUnlocked = document.getElementById('admin-unlocked');
     if(adminLocked && adminUnlocked){
@@ -2052,11 +1943,9 @@ function renderAll(){
         </div>`).join('') : '<p class="text-slate-500">Sin torneos.</p>';
     }
 
-    // live feed
     const lf = document.getElementById('live-feed-list');
     if(lf){ lf.innerHTML = liveFeed.map(f=>`<p class="text-slate-300">${f}</p>`).join(''); }
 
-    // direct regs
     renderDirectRegistrations();
     renderRegisteredUsers();
     renderVipActivities();
@@ -2066,10 +1955,11 @@ function renderAll(){
   }
 }
 
-/* ===================== INIT ===================== */
+/* ============ INIT ============ */
 document.addEventListener('DOMContentLoaded', () => {
+  appReady = true;
   updateRoleUI();
-  renderAll();
+  safeRenderAll();
   renderChatRooms();
 });
 </script>

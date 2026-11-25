@@ -108,9 +108,6 @@
   ::-webkit-scrollbar-thumb:hover{background:rgba(239,68,68,.55)}
   .nav-active{background:linear-gradient(180deg,#ef4444,#b91c1c) !important; color:#fff !important; border-color:transparent !important}
 
-  /* ============================================================
-     NUEVOS ESTILOS: LOGO ESTILO BANDERA ESPORTS (FFLA)
-     ============================================================ */
   .flag-shield {
     position: relative;
     width: 100%;
@@ -202,7 +199,6 @@
 <div id="view-lobby" class="fixed inset-0 z-50 flex items-center justify-center p-4">
   <div class="relative w-full max-w-xl text-center space-y-7 p-8 sm:p-12 rounded-3xl panel panel-red pulse-glow">
     <div class="flex justify-center">
-      <!-- LOGO ESTILO BANDERA (LOBBY) -->
       <div class="flag-glow w-40 sm:w-48">
         <div class="flag-shield">
           <span class="flag-shield-star">★</span>
@@ -237,7 +233,6 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-3 pb-3 space-y-3">
       <div class="flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-3">
-          <!-- LOGO ESTILO BANDERA (HEADER) -->
           <div class="flag-glow w-12 h-16 shrink-0">
             <div class="flag-shield">
               <span class="flag-shield-star text-[8px] top-[3%]">★</span>
@@ -252,8 +247,7 @@
                 NATIONAL <span class="text-red-500">TOURNAMENTS</span>
               </h1>
               <span id="role-badge" class="stat-pill">Público</span>
-              <!-- Indicador de conexión en vivo -->
-              <span class="stat-pill text-emerald-400 border-emerald-500/30"><span class="dot" style="background:#10b981; box-shadow:0 0 8px #10b981;"></span> En vivo</span>
+              <span id="live-indicator" class="stat-pill text-emerald-400 border-emerald-500/30"><span class="dot" style="background:#10b981; box-shadow:0 0 8px #10b981;"></span> En vivo</span>
             </div>
             <div class="flex items-center gap-2 text-[10px] tracking-[0.15em] text-slate-400 font-bold uppercase mt-0.5">
               <span>Free Fire · LATAM</span><span class="text-red-500">•</span><span class="text-red-400">Plataforma competitiva</span>
@@ -383,7 +377,6 @@
           </div>
         </section>
 
-        <!-- PANEL: REGISTROS DIRECTOS CON WHATSAPP -->
         <section class="panel panel-red p-5 space-y-3">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-3">
             <div>
@@ -878,7 +871,7 @@
             <div class="panel p-4"><p class="field-label">Jugadores</p><p id="admin-stat-players" class="font-display text-2xl text-white">0</p></div>
             <div class="panel p-4"><p class="field-label">Torneos</p><p id="admin-stat-tournaments" class="font-display text-2xl text-white">0</p></div>
           </div>
-          <p class="text-[11px] text-slate-400 pt-3">Cuentas demo: <b>admin@nt.gg / admin123</b> · <b>staff@nt.gg / staff123</b></p>
+          <p class="text-[11px] text-slate-400 pt-3">Usa tus cuentas creadas en Firebase Auth.</p>
         </div>
         <div class="panel p-5 space-y-3">
           <h3 class="text-sm font-black text-white uppercase tracking-wider">Verificar jugadores</h3>
@@ -924,38 +917,23 @@
   </div>
 </div>
 
-<!-- PAYMENT MODAL -->
-<div id="payment-modal" class="hidden fixed inset-0 z-[90] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
+<!-- ADMIN LOGIN MODAL -->
+<div id="admin-modal" class="hidden fixed inset-0 z-[95] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
   <div class="w-full max-w-md panel panel-red p-6 space-y-4">
     <div class="flex items-start justify-between gap-2">
-      <div>
-        <span id="modal-placement-badge" class="tag tag-red">Ingreso</span>
-        <h3 id="modal-activity-title" class="text-base font-black text-white mt-1">Actividad</h3>
-        <p class="text-xs text-slate-400">Monto a pagar: <strong id="modal-activity-fee" class="text-red-400">$0 USD</strong></p>
-      </div>
-      <button type="button" onclick="closePaymentModal()" class="btn btn-ghost btn-sm text-slate-300">✕</button>
+      <div><span class="tag tag-red">Acceso administrativo</span><h3 class="text-lg font-black text-white mt-1">Iniciar sesión</h3></div>
+      <button type="button" onclick="closeAdminLogin()" class="btn btn-ghost btn-sm text-slate-400">✕</button>
     </div>
-    <form id="payment-form" onsubmit="handleConfirmPayment(event)" class="space-y-3">
-      <div><label class="field-label">Nombre del equipo</label><input id="modal-team-name" required class="input-base" /></div>
-      <div><label class="field-label">Comprobante / Referencia de pago</label><input id="modal-payment-ref" required class="input-base" placeholder="Yappy / Transferencia / Folio" /></div>
-      <div class="p-3 rounded-xl bg-black/50 border border-white/5 flex items-center justify-between">
-        <div><p class="text-[11px] text-slate-400">Contraseña asignada:</p><p id="modal-random-code" class="text-sm font-black tracking-wider text-emerald-400 font-mono">NT-XXXX-000</p></div>
-        <button type="button" onclick="refreshModalRandomCode()" class="btn btn-ghost btn-sm text-red-200 border-red-500/30">Nueva clave</button>
-      </div>
-      <button type="submit" class="btn btn-primary w-full py-2.5">Confirmar pago</button>
+    <form onsubmit="handleAdminLogin(event)" class="space-y-3">
+      <div><label class="field-label">Correo</label><input id="admin-email" type="email" required class="input-base" placeholder="admin@nt.gg" /></div>
+      <div><label class="field-label">Contraseña</label><input id="admin-pass" type="password" required class="input-base" placeholder="••••••••" /></div>
+      <button type="submit" class="btn btn-primary w-full py-2.5">Entrar al panel</button>
     </form>
-    <div id="payment-success-box" class="hidden space-y-3">
-      <div class="p-4 rounded-xl bg-emerald-950/30 border border-emerald-500/30 text-center space-y-1">
-        <p class="text-xs font-bold text-emerald-400">¡Pago confirmado!</p>
-        <p class="text-[11px] text-slate-300">Contraseña de acceso a la sala:</p>
-        <p id="confirmed-code-display" class="text-lg font-black tracking-widest text-white font-mono py-1"></p>
-      </div>
-      <button type="button" onclick="closePaymentModal()" class="btn btn-green w-full py-2">Entendido</button>
-    </div>
+    <p class="text-[11px] text-slate-400">Las cuentas se crean en Firebase Console → Authentication.</p>
   </div>
 </div>
 
-<!-- JOIN ACTIVITY MODAL (REGISTRO DIRECTO A WHATSAPP) -->
+<!-- JOIN ACTIVITY MODAL -->
 <div id="join-activity-modal" class="hidden fixed inset-0 z-[95] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
   <div class="w-full max-w-md panel panel-red p-6 space-y-4">
     <div class="flex items-start justify-between gap-2">
@@ -1011,22 +989,6 @@
   </div>
 </div>
 
-<!-- ADMIN LOGIN MODAL -->
-<div id="admin-modal" class="hidden fixed inset-0 z-[95] bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-  <div class="w-full max-w-md panel panel-red p-6 space-y-4">
-    <div class="flex items-start justify-between gap-2">
-      <div><span class="tag tag-red">Acceso administrativo</span><h3 class="text-lg font-black text-white mt-1">Iniciar sesión</h3></div>
-      <button type="button" onclick="closeAdminLogin()" class="btn btn-ghost btn-sm text-slate-400">✕</button>
-    </div>
-    <form onsubmit="handleAdminLogin(event)" class="space-y-3">
-      <div><label class="field-label">Correo</label><input id="admin-email" type="email" required class="input-base" placeholder="admin@nt.gg" /></div>
-      <div><label class="field-label">Contraseña</label><input id="admin-pass" type="password" required class="input-base" placeholder="••••••••" /></div>
-      <button type="submit" class="btn btn-primary w-full py-2.5">Entrar al panel</button>
-    </form>
-    <p class="text-[11px] text-slate-400">Demo: <b>admin@nt.gg / admin123</b> · <b>staff@nt.gg / staff123</b></p>
-  </div>
-</div>
-
 <!-- TEAM PORTAL MODAL -->
 <div id="team-portal-modal" class="hidden fixed inset-0 z-[95] bg-black/85 backdrop-blur-sm flex items-center justify-center p-4">
   <div class="w-full max-w-2xl panel panel-red p-6 space-y-4 max-h-[90vh] overflow-y-auto">
@@ -1038,6 +1000,37 @@
   </div>
 </div>
 
+<!-- ================= FIREBASE SDK ================= -->
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+  import { getFirestore, doc, onSnapshot, setDoc }
+    from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyD2u-o7_V6nXnZeRF7ohKz6GIL71ojrTWc",
+    authDomain: "nationaltournaments.firebaseapp.com",
+    projectId: "nationaltournaments",
+    storageBucket: "nationaltournaments.firebasestorage.app",
+    messagingSenderId: "665250164351",
+    appId: "1:665250164351:web:124203304edf95975a594a",
+    measurementId: "G-H0N11SV0GX"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
+
+  window.FB = { app, auth, db,
+    signInWithEmailAndPassword, signOut, onAuthStateChanged,
+    doc, onSnapshot, setDoc
+  };
+
+  window.dispatchEvent(new Event('firebase-ready'));
+</script>
+
+<!-- ================= APP LOGIC ================= -->
 <script>
 /* ===================== ROLES ===================== */
 const ROLE_PASSWORDS = {
@@ -1050,23 +1043,39 @@ let currentTab = 'home';
 let registeredProfile = null;
 
 /* ===================== ADMIN SESSION ===================== */
-const ADMIN_USERS = [
-  { email:'admin@nt.gg', pass:'admin123', role:'ADMIN' },
-  { email:'staff@nt.gg', pass:'staff123', role:'STAFF' }
-];
-let currentAdmin = DB_load('session', null);
+let currentAdmin = null;
 
-/* ===================== STORAGE ===================== */
-function DB_load(k, fb){ try{ const r = localStorage.getItem('nt_'+k); return r ? JSON.parse(r) : fb; }catch(e){ return fb; } }
-function DB_save(k, v){ localStorage.setItem('nt_'+k, JSON.stringify(v)); }
+/* ===================== STORAGE (localStorage + Firestore en vivo) ===================== */
+function DB_load(k, fb){
+  try{ const r = localStorage.getItem('nt_'+k); return r ? JSON.parse(r) : fb; }catch(e){ return fb; }
+}
+function DB_save(k, v){
+  try{ localStorage.setItem('nt_'+k, JSON.stringify(v)); }catch(e){}
+  syncToFirestore(k, v);
+}
+
+async function syncToFirestore(key, value){
+  if(!window.FB || !window.FB.db) return;
+  if(key === 'session') return; // sesión la maneja Firebase Auth
+  const { db, doc, setDoc } = window.FB;
+  try{
+    if(key === 'chatRooms'){
+      await setDoc(doc(db, 'meta', 'chatRooms'), value, { merge:true });
+    } else {
+      await setDoc(doc(db, 'meta', key), { items: value, updatedAt: Date.now() }, { merge:true });
+    }
+  }catch(err){
+    console.warn('Firestore sync error ['+key+']:', err);
+  }
+}
 
 /* ===================== DATOS PERSISTENTES ===================== */
-let teams         = DB_load('teams', [
+let teams = DB_load('teams', [
   { id:'t1', name:'NORTE TITAN ESPORTS', tag:'NTE', kills:42, booyahs:2, posPoints:34 },
   { id:'t2', name:'CRIMSON WOLVES', tag:'CW', kills:35, booyahs:1, posPoints:28 },
   { id:'t3', name:'SOLAR PHANTOMS', tag:'SP', kills:29, booyahs:1, posPoints:22 }
 ]);
-let activities    = DB_load('activities', [
+let activities = DB_load('activities', [
   { id:'act-1', title:'Relámpago Norte Express #01', placement:'RELAMPAGO', date:'Hoy', time:'19:00', fee:'$5 USD', prize:'$120 USD', groupLink:'https://chat.whatsapp.com/EjemploRelampago', enrolledTeams:['NORTE TITAN ESPORTS'] },
   { id:'act-2', title:'Torneo Bloque Especial Norte', placement:'TORNEO', date:'Mañana', time:'21:00', fee:'$15 USD', prize:'$500 USD', groupLink:'https://chat.whatsapp.com/EjemploTorneo', enrolledTeams:['CRIMSON WOLVES','SOLAR PHANTOMS'] },
   { id:'act-3', title:'XT Entreno Oficial Bloque Norte', placement:'XT ENTRENOS', date:'Hoy', time:'17:30', fee:'GRATIS', prize:'Entreno Libre', groupLink:'https://chat.whatsapp.com/EjemploEntreno', enrolledTeams:[] }
@@ -1075,27 +1084,20 @@ let vipActivities = DB_load('vipActivities', [
   { id:'vip-act-1', title:'Relámpago VIP Élite #01', type:'RELAMPAGO', date:'Hoy', time:'22:00', fee:'VIP', prize:'Pase VIP', groupLink:'https://chat.whatsapp.com/EjemploVIP', enrolledTeams:[] }
 ]);
 let registeredUsers = DB_load('registeredUsers', []);
-let liveFeed        = DB_load('liveFeed', ['NATIONAL TOURNAMENTS en línea: Relámpago, Torneo y XT Entrenos listos.']);
+let liveFeed = DB_load('liveFeed', ['NATIONAL TOURNAMENTS en línea: Relámpago, Torneo y XT Entrenos listos.']);
 let chatRooms = DB_load('chatRooms', {
   general:[{ id:'cg-1', time:'Ahora', sender:'PÚBLICO', text:'Bienvenidos al Chat General.' }],
   vip:[{ id:'cv-1', time:'Ahora', sender:'VIP', text:'Canal exclusivo VIP.' }],
   staff:[{ id:'cs-1', time:'Ahora', sender:'ORGANIZACIÓN', text:'Canal privado STAFF/CREADOR/CREADOR VIP/ADMIN.' }]
 });
-
-/* --- NUEVOS DATOS --- */
-let players        = DB_load('players', []);
-let tournaments    = DB_load('tournaments', []);
-let results        = DB_load('results', []);
-let sanctions      = DB_load('sanctions', []);
-let news           = DB_load('news', []);
+let players = DB_load('players', []);
+let tournaments = DB_load('tournaments', []);
+let results = DB_load('results', []);
+let sanctions = DB_load('sanctions', []);
+let news = DB_load('news', []);
 let tournamentRequests = DB_load('tournamentRequests', []);
 let directRegistrations = DB_load('directRegistrations', []);
 
-/* --- SESIÓN PAGO --- */
-let activePaymentActivityId = null;
-let currentRandomCode = '';
-
-/* --- SESIÓN JOIN ACTIVITY --- */
 let activeJoinActivityId = null;
 let currentJoinRandomCode = '';
 
@@ -1105,12 +1107,52 @@ function saveAll(){
   DB_save('players', players); DB_save('tournaments', tournaments); DB_save('results', results);
   DB_save('sanctions', sanctions); DB_save('news', news); DB_save('tournamentRequests', tournamentRequests);
   DB_save('directRegistrations', directRegistrations);
-  DB_save('session', currentAdmin);
 }
+
+/* ===================== LIVE SYNC ===================== */
+function initLiveSync(){
+  if(!window.FB || !window.FB.db){ setTimeout(initLiveSync, 300); return; }
+  const { db, doc, onSnapshot } = window.FB;
+
+  const subscribe = (key, applyFn) => {
+    onSnapshot(doc(db, 'meta', key), snap => {
+      if(!snap.exists()) return;
+      const data = snap.data();
+      if(applyFn) applyFn(data);
+      renderAll();
+    }, err => console.warn('snapshot error', key, err));
+  };
+
+  subscribe('teams',              d => { if(Array.isArray(d.items)) teams = d.items; });
+  subscribe('activities',         d => { if(Array.isArray(d.items)) activities = d.items; });
+  subscribe('vipActivities',      d => { if(Array.isArray(d.items)) vipActivities = d.items; });
+  subscribe('registeredUsers',    d => { if(Array.isArray(d.items)) registeredUsers = d.items; });
+  subscribe('liveFeed',           d => { if(Array.isArray(d.items)) liveFeed = d.items; });
+  subscribe('players',            d => { if(Array.isArray(d.items)) players = d.items; });
+  subscribe('tournaments',        d => { if(Array.isArray(d.items)) tournaments = d.items; });
+  subscribe('results',            d => { if(Array.isArray(d.items)) results = d.items; });
+  subscribe('sanctions',          d => { if(Array.isArray(d.items)) sanctions = d.items; });
+  subscribe('news',               d => { if(Array.isArray(d.items)) news = d.items; });
+  subscribe('tournamentRequests', d => { if(Array.isArray(d.items)) tournamentRequests = d.items; });
+  subscribe('directRegistrations',d => { if(Array.isArray(d.items)) directRegistrations = d.items; });
+
+  onSnapshot(doc(db, 'meta', 'chatRooms'), snap => {
+    if(!snap.exists()) return;
+    chatRooms = snap.data();
+    renderChatRooms();
+    renderAll();
+  });
+
+  const ind = document.getElementById('live-indicator');
+  if(ind) ind.innerHTML = '<span class="dot" style="background:#10b981; box-shadow:0 0 8px #10b981;"></span> En vivo';
+  console.log('✅ Live sync activo (Firestore onSnapshot)');
+}
+
+window.addEventListener('firebase-ready', initLiveSync);
+if(window.FB) initLiveSync();
 
 /* ===================== HELPERS ===================== */
 function uid(p){ return p+'-'+Date.now()+'-'+Math.random().toString(36).slice(2,6); }
-function fmtDate(d){ if(!d) return ''; return new Date(d).toLocaleDateString(); }
 function readFileAsDataURL(file){
   return new Promise((resolve, reject)=>{
     if(!file){ resolve(''); return; }
@@ -1141,7 +1183,6 @@ function hasRole(r){ return activeRoles.includes(r); }
 function hasAnyRole(){ return activeRoles.length > 0; }
 function getActiveRankLabel(){ return activeRoles.length > 0 ? activeRoles.join(' + ') : 'PÚBLICO'; }
 function syncPrimaryRole(){ currentRole = ROLE_PRIORITY.find(r=>activeRoles.includes(r)) || 'PÚBLICO'; }
-function clearAllRoles(){ activeRoles=[]; currentRole='PÚBLICO'; updateRoleUI(); renderAll(); showToast('Rangos reiniciados.'); }
 function hasCreatorOrAdminRole(){ return hasRole('CREADOR') || hasRole('ADMIN'); }
 function hasAnyManagerRole(){ return hasRole('CREADOR') || hasRole('ADMIN') || hasRole('STAFF'); }
 function canAccessVipPrivateSection(){ return hasRole('VIP') || hasRole('STAFF') || hasRole('CREADOR') || hasRole('ADMIN') || hasRole('CREADOR VIP'); }
@@ -1187,26 +1228,47 @@ function switchTab(tab){
   renderAll();
 }
 
-/* ===================== ADMIN LOGIN ===================== */
+/* ===================== ADMIN LOGIN (Firebase Auth) ===================== */
 function openAdminLogin(){ document.getElementById('admin-modal').classList.remove('hidden'); }
 function closeAdminLogin(){ document.getElementById('admin-modal').classList.add('hidden'); }
-function handleAdminLogin(e){
+
+async function handleAdminLogin(e){
   e.preventDefault();
+  if(!window.FB){ showToast('Firebase aún cargando, intenta de nuevo.', 'error'); return; }
   const email = document.getElementById('admin-email').value.trim().toLowerCase();
-  const pass = document.getElementById('admin-pass').value;
-  const user = ADMIN_USERS.find(u=>u.email===email && u.pass===pass);
-  if(!user){ showToast('Credenciales inválidas.', 'error'); return; }
-  currentAdmin = { email:user.email, role:user.role };
-  DB_save('session', currentAdmin);
-  closeAdminLogin(); updateRoleUI(); renderAll();
-  switchTab('admin');
-  showToast('Bienvenido, ' + user.role);
+  const pass  = document.getElementById('admin-pass').value;
+  try{
+    const cred = await window.FB.signInWithEmailAndPassword(window.FB.auth, email, pass);
+    const role = email.includes('admin') ? 'ADMIN' : 'STAFF';
+    currentAdmin = { email: cred.user.email, uid: cred.user.uid, role };
+    closeAdminLogin(); updateRoleUI(); renderAll(); switchTab('admin');
+    showToast('Bienvenido, ' + role);
+  }catch(err){
+    console.error(err);
+    showToast('Credenciales inválidas o usuario no creado en Firebase.', 'error');
+  }
 }
-function logoutAdmin(){
-  currentAdmin = null; DB_save('session', null);
+async function logoutAdmin(){
+  if(window.FB){ try{ await window.FB.signOut(window.FB.auth); }catch(e){} }
+  currentAdmin = null;
   updateRoleUI(); renderAll();
   showToast('Sesión cerrada.');
 }
+
+function wireAuthState(){
+  if(!window.FB){ setTimeout(wireAuthState, 300); return; }
+  window.FB.onAuthStateChanged(window.FB.auth, user => {
+    if(user){
+      const email = user.email || '';
+      const role = email.includes('admin') ? 'ADMIN' : 'STAFF';
+      currentAdmin = { email, uid: user.uid, role };
+    } else {
+      currentAdmin = null;
+    }
+    updateRoleUI(); renderAll();
+  });
+}
+wireAuthState();
 
 /* ===================== ROLES POR CÓDIGO ===================== */
 function openRoleModal(){ document.getElementById('role-code-input').value=''; document.getElementById('role-modal').classList.remove('hidden'); document.getElementById('role-code-input').focus(); }
@@ -1284,7 +1346,7 @@ function renderChatRooms(){
   }
   const vipEl = document.getElementById('chat-vip-messages');
   if(vipEl){
-    vipEl.innerHTML = chatRooms.vip.map(m=>`
+    vipEl.innerHTML = (chatRooms.vip||[]).map(m=>`
       <div class="chat-bubble border-purple-500/20 bg-purple-950/20">
         <div class="flex items-center justify-between gap-2 text-[10px] text-purple-300 font-black"><span>${m.sender}</span><span class="text-slate-500">${m.time}</span></div>
         <p class="text-slate-200 mt-1 break-words">${m.text}</p>
@@ -1299,7 +1361,7 @@ function renderChatRooms(){
   }
   const staffEl = document.getElementById('chat-staff-messages');
   if(staffEl){
-    staffEl.innerHTML = chatRooms.staff.map(m=>`
+    staffEl.innerHTML = (chatRooms.staff||[]).map(m=>`
       <div class="chat-bubble border-red-500/20 bg-red-950/20">
         <div class="flex items-center justify-between gap-2 text-[10px] text-amber-300 font-black"><span>${m.sender}</span><span class="text-slate-500">${m.time}</span></div>
         <p class="text-slate-200 mt-1 break-words">${m.text}</p>
@@ -1308,7 +1370,7 @@ function renderChatRooms(){
   }
   const genEl = document.getElementById('chat-general-messages');
   if(genEl){
-    genEl.innerHTML = chatRooms.general.map(m=>`
+    genEl.innerHTML = (chatRooms.general||[]).map(m=>`
       <div class="chat-bubble border-white/5">
         <div class="flex items-center justify-between gap-2 text-[10px] text-red-400 font-black"><span>${m.sender}</span><span class="text-slate-500">${m.time}</span></div>
         <p class="text-slate-200 mt-1 break-words">${m.text}</p>
@@ -1325,6 +1387,7 @@ function handleSendChatMessage(e, roomKey){
   const text = (inputEl?.value||'').trim(); if(!text) return;
   const sender = getSpeakerIdentityLabel();
   const time = new Date().toLocaleTimeString([], {hour:'2-digit', minute:'2-digit'});
+  if(!chatRooms[roomKey]) chatRooms[roomKey] = [];
   chatRooms[roomKey].push({ id:`msg-${roomKey}-${Date.now()}`, time, sender, text });
   DB_save('chatRooms', chatRooms);
   inputEl.value='';
@@ -1471,12 +1534,11 @@ function generateRandomPassword(placement){
   return `${prefix}-${letters}-${digits}`;
 }
 
-/* ===================== JOIN ACTIVITY (REGISTRO DIRECTO A WHATSAPP) ===================== */
+/* ===================== JOIN ACTIVITY ===================== */
 function handleJoinActivity(actId){
   const act = activities.find(a=>a.id===actId); if(!act) return;
   activeJoinActivityId = act.id;
   currentJoinRandomCode = generateRandomPassword(act.placement);
-
   document.getElementById('join-modal-placement').textContent = act.placement;
   document.getElementById('join-modal-title').textContent = act.title;
   document.getElementById('join-random-code').textContent = currentJoinRandomCode;
@@ -1484,11 +1546,9 @@ function handleJoinActivity(actId){
   document.getElementById('join-captain').value = teams[0]?.captain || '';
   document.getElementById('join-phone').value = teams[0]?.phone || '';
   document.getElementById('join-payment-ref').value = '';
-
   const payFields = document.getElementById('join-payment-fields');
   const isFree = act.placement==='XT ENTRENOS' || String(act.fee).toUpperCase()==='GRATIS';
   if(isFree){ payFields.classList.add('hidden'); } else { payFields.classList.remove('hidden'); }
-
   document.getElementById('join-activity-form').classList.remove('hidden');
   document.getElementById('join-success-box').classList.add('hidden');
   document.getElementById('join-activity-modal').classList.remove('hidden');
@@ -1505,66 +1565,38 @@ function refreshJoinRandomCode(){
 function handleConfirmJoinActivity(e){
   e.preventDefault();
   const act = activities.find(a=>a.id===activeJoinActivityId); if(!act) return;
-
   const teamName = document.getElementById('join-team-name').value.trim();
   const captain = document.getElementById('join-captain').value.trim();
   const phone = document.getElementById('join-phone').value.trim();
   const isFree = act.placement==='XT ENTRENOS' || String(act.fee).toUpperCase()==='GRATIS';
   const ref = isFree ? 'GRATIS' : (document.getElementById('join-payment-ref').value.trim() || 'PAGO-OK');
-
-  if(!teamName || !captain || !phone){
-    showToast('Completa nombre, capitán y teléfono.', 'error'); return;
-  }
+  if(!teamName || !captain || !phone){ showToast('Completa nombre, capitán y teléfono.', 'error'); return; }
   if(!isFree && !ref){ showToast('Ingresa el comprobante de pago.', 'error'); return; }
-
   const entry = `${teamName} (${captain} · ${phone})`;
   if(!act.enrolledTeams.includes(entry)) act.enrolledTeams.push(entry);
-
   directRegistrations.unshift({
-    id: uid('reg'),
-    activityId: act.id,
-    activityTitle: act.title,
-    placement: act.placement,
-    teamName, captain, phone, ref,
-    code: currentJoinRandomCode,
-    whatsappGroup: act.groupLink || '',
-    createdAt: Date.now()
+    id: uid('reg'), activityId: act.id, activityTitle: act.title, placement: act.placement,
+    teamName, captain, phone, ref, code: currentJoinRandomCode,
+    whatsappGroup: act.groupLink || '', createdAt: Date.now()
   });
-
   pushFeed(`registró a ${teamName} (${captain}) en "${act.title}" • Clave: ${currentJoinRandomCode}`, { requireRank:true, includeRankTag:true });
-
   document.getElementById('join-activity-form').classList.add('hidden');
   document.getElementById('join-confirmed-code').textContent = currentJoinRandomCode;
   const waLink = document.getElementById('join-whatsapp-link');
-  if(act.groupLink){
-    waLink.href = act.groupLink;
-    waLink.classList.remove('hidden');
-  } else {
-    waLink.classList.add('hidden');
-    showToast('La organización no definió link de WhatsApp.', 'error');
-  }
+  if(act.groupLink){ waLink.href = act.groupLink; waLink.classList.remove('hidden'); }
+  else { waLink.classList.add('hidden'); showToast('La organización no definió link de WhatsApp.', 'error'); }
   document.getElementById('join-success-box').classList.remove('hidden');
-
   saveAll(); renderAll();
   showToast(`¡Registrado en "${act.title}"!`);
 }
 
-/* ===================== PANEL REGISTROS DIRECTOS ===================== */
+/* ===================== REGISTROS DIRECTOS ===================== */
 function renderDirectRegistrations(){
   const container = document.getElementById('direct-registrations-panel');
   if(!container) return;
-
   const canView = hasAnyManagerRole() || hasCreatorOrAdminRole();
-
-  if(!canView){
-    container.innerHTML = '<p class="text-xs text-slate-500 py-2">Solo organizadores pueden ver los registros directos.</p>';
-    return;
-  }
-  if(directRegistrations.length===0){
-    container.innerHTML = '<p class="text-xs text-slate-500 py-2">Aún no hay registros directos.</p>';
-    return;
-  }
-
+  if(!canView){ container.innerHTML = '<p class="text-xs text-slate-500 py-2">Solo organizadores pueden ver los registros directos.</p>'; return; }
+  if(directRegistrations.length===0){ container.innerHTML = '<p class="text-xs text-slate-500 py-2">Aún no hay registros directos.</p>'; return; }
   container.innerHTML = `
     <div class="overflow-x-auto">
       <table class="data-table">
@@ -1701,56 +1733,40 @@ function handleCreateTournament(e){
     slots: Number(document.getElementById('t-slots').value),
     category: document.getElementById('t-category').value,
     rules: document.getElementById('t-rules').value.trim(),
-    createdAt: Date.now()
+    approvedTeams: [], createdAt: Date.now()
   };
   tournaments.unshift(t); saveAll(); renderAll();
-  e.target.reset(); showToast('Torneo creado.');
-}
-function requestJoinTournament(tid, teamId){
-  if(!currentAdmin){ showToast('Debes iniciar sesión.', 'error'); return; }
-  if(tournamentRequests.some(r=>r.tournamentId===tid && r.teamId===teamId)){ showToast('Ya solicitado.', 'error'); return; }
-  const t = tournaments.find(x=>x.id===tid); if(!t) return;
-  const approved = tournamentRequests.filter(r=>r.tournamentId===tid && r.status==='Aprobado').length;
-  if(approved >= t.slots){ showToast('Cupos llenos.', 'error'); return; }
-  tournamentRequests.push({ id: uid('req'), tournamentId:tid, teamId, status:'Pendiente', createdAt:Date.now() });
-  saveAll(); renderAll(); showToast('Solicitud enviada.');
-}
-function approveTournamentRequest(reqId, status){
-  if(!currentAdmin){ showToast('Solo admin.', 'error'); return; }
-  const r = tournamentRequests.find(x=>x.id===reqId); if(!r) return;
-  const t = tournaments.find(x=>x.id===r.tournamentId); if(!t) return;
-  if(status==='Aprobado'){
-    const approved = tournamentRequests.filter(x=>x.tournamentId===r.tournamentId && x.status==='Aprobado').length;
-    if(approved >= t.slots){ showToast('Cupos llenos.', 'error'); return; }
-  }
-  r.status = status; saveAll(); renderAll(); showToast('Solicitud ' + status + '.');
+  e.target.reset();
+  showToast('Torneo creado.');
 }
 
 /* ===================== RESULTADOS ===================== */
-function calcPoints(pos, kills){
-  const posTable = [15,12,10,8,6,5,4,3,2,1];
-  const posPts = posTable[pos-1] || 0;
-  return { posPts, kills, total: posPts + kills };
-}
 function handleAddResult(e){
   e.preventDefault();
   if(!currentAdmin){ showToast('Inicia sesión.', 'error'); return; }
-  const tid = document.getElementById('res-tournament').value;
+  const tournamentId = document.getElementById('res-tournament').value;
   const teamId = document.getElementById('res-team').value;
   const pos = Number(document.getElementById('res-pos').value);
   const kills = Number(document.getElementById('res-kills').value);
   const notes = document.getElementById('res-notes').value.trim();
-  const { posPts, total } = calcPoints(pos, kills);
-  results.unshift({ id: uid('r'), tournamentId:tid, teamId, pos, kills, posPts, total, notes, createdAt:Date.now() });
-  saveAll(); renderAll(); e.target.reset(); showToast('Resultado registrado.');
+  const posPts = pos===1?12:pos===2?9:pos===3?8:pos===4?7:pos===5?6:pos===6?5:pos===7?4:pos===8?3:pos===9?2:pos===10?1:0;
+  const booyah = pos===1 ? 1 : 0;
+  const total = posPts + kills + (booyah?3:0);
+  results.unshift({ id: uid('res'), tournamentId, teamId, pos, kills, posPoints: posPts, booyah, total, notes, createdAt: Date.now() });
+  saveAll(); renderAll();
+  e.target.reset();
+  showToast('Resultado registrado.');
 }
+
+/* ===================== RANKINGS ===================== */
+function renderRankings(){ renderAll(); }
 
 /* ===================== SANCIONES ===================== */
 function handleCreateSanction(e){
   e.preventDefault();
-  if(!currentAdmin){ showToast('Inicia sesión.', 'error'); return; }
+  if(!currentAdmin && !hasAnyManagerRole()){ showToast('Sin permiso.', 'error'); return; }
   const s = {
-    id: uid('s'),
+    id: uid('san'),
     teamId: document.getElementById('san-team').value,
     reason: document.getElementById('san-reason').value.trim(),
     status: document.getElementById('san-status').value,
@@ -1758,279 +1774,265 @@ function handleCreateSanction(e){
     appeal: document.getElementById('san-appeal').value.trim(),
     createdAt: Date.now()
   };
-  sanctions.unshift(s); saveAll(); renderAll(); e.target.reset(); showToast('Sanción registrada.');
-}
-function resolveAppeal(id){
-  if(!currentAdmin){ showToast('Inicia sesión.', 'error'); return; }
-  const s = sanctions.find(x=>x.id===id); if(!s) return;
-  s.status = 'Cumplida'; saveAll(); renderAll(); showToast('Apelación resuelta.');
+  sanctions.unshift(s); saveAll(); renderAll();
+  e.target.reset();
+  showToast('Sanción registrada.');
 }
 
 /* ===================== NOTICIAS ===================== */
 function handleCreateNews(e){
   e.preventDefault();
-  if(!currentAdmin){ showToast('Inicia sesión.', 'error'); return; }
+  if(!currentAdmin && !hasAnyManagerRole()){ showToast('Sin permiso.', 'error'); return; }
   const n = {
-    id: uid('n'),
+    id: uid('news'),
     title: document.getElementById('news-title').value.trim(),
-    cat: document.getElementById('news-cat').value,
+    category: document.getElementById('news-cat').value,
     body: document.getElementById('news-body').value.trim(),
     createdAt: Date.now()
   };
-  news.unshift(n); saveAll(); renderAll(); e.target.reset(); showToast('Noticia publicada.');
+  news.unshift(n); saveAll(); renderAll();
+  e.target.reset();
+  showToast('Noticia publicada.');
 }
 
-/* ===================== RENDER ===================== */
+/* ===================== CREATOR CMD ===================== */
+function runCreatorCommand(cmd){
+  if(!hasCreatorOrAdminRole()){ showToast('Solo CREADOR/ADMIN.', 'error'); return; }
+  const c = String(cmd||'').toUpperCase().trim();
+  if(!c) return;
+  switchTab('activities');
+  if(c.includes('RELAMPAGO')){ document.getElementById('act-placement').value='RELAMPAGO'; handlePlacementChange('RELAMPAGO'); }
+  else if(c.includes('ENTRENO')){ document.getElementById('act-placement').value='XT ENTRENOS'; handlePlacementChange('XT ENTRENOS'); }
+  else if(c.includes('TORNEO')){ document.getElementById('act-placement').value='TORNEO'; handlePlacementChange('TORNEO'); }
+  document.getElementById('creator-cmd-input').value='';
+  document.getElementById('act-title').focus();
+  showToast('Comando aplicado: '+c);
+}
+
+/* ===================== RENDER ALL ===================== */
 function renderAll(){
-  const st = { tournaments: tournaments.length, teams: teams.length, players: players.length, sanctions: sanctions.length };
-  ['stat-tournaments','stat-teams','stat-players','stat-sanctions'].forEach((id, i)=>{
-    const el = document.getElementById(id); if(el) el.textContent = [st.tournaments,st.teams,st.players,st.sanctions][i];
-  });
-  const tc = document.getElementById('teams-count'); if(tc) tc.textContent = teams.length + ' equipos';
-  const pc = document.getElementById('players-count'); if(pc) pc.textContent = players.length + ' jugadores';
-  const toc = document.getElementById('tournaments-count'); if(toc) toc.textContent = tournaments.length + ' torneos';
-  const sc = document.getElementById('sanctions-count'); if(sc) sc.textContent = sanctions.length + ' sanciones';
+  try{
+    // stats home
+    const sT = document.getElementById('stat-tournaments'); if(sT) sT.textContent = tournaments.length;
+    const sTe = document.getElementById('stat-teams'); if(sTe) sTe.textContent = teams.length;
+    const sP = document.getElementById('stat-players'); if(sP) sP.textContent = players.length;
+    const sS = document.getElementById('stat-sanctions'); if(sS) sS.textContent = sanctions.length;
 
-  const teamOpts = teams.map(t=>`<option value="${t.id}">[${t.tag}] ${t.name}</option>`).join('') || '<option>Sin equipos</option>';
-  ['pl-team','res-team','san-team'].forEach(id=>{ const el = document.getElementById(id); if(el) el.innerHTML = teamOpts; });
-  const tourOpts = tournaments.map(t=>`<option value="${t.id}">${t.name}</option>`).join('') || '<option>Sin torneos</option>';
-  const rt = document.getElementById('res-tournament'); if(rt) rt.innerHTML = tourOpts;
-  const ft = document.getElementById('filter-tournament'); if(ft) ft.innerHTML = '<option value="">Todos los torneos</option>' + tournaments.map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
+    // home tournaments
+    const homeT = document.getElementById('home-tournaments');
+    if(homeT){
+      homeT.innerHTML = tournaments.slice(0,3).map(t=>`
+        <div class="p-3 rounded-xl bg-black/40 border border-white/5">
+          <div class="flex items-center justify-between"><span class="tag tag-amber">${t.mode||'BR'}</span><span class="text-[11px] text-slate-400">${t.date||''} ${t.time||''}</span></div>
+          <p class="font-bold text-white text-sm mt-1">${t.name}</p>
+          <p class="text-[11px] text-slate-400">Cupos: ${t.slots||0} · ${t.category||''}</p>
+        </div>`).join('') || '<p class="text-slate-500 text-xs">Sin torneos creados.</p>';
+    }
 
-  renderHome();
-  renderActivities();
-  renderDirectRegistrations();
-  renderTeams();
-  renderPlayers();
-  renderTournaments();
-  renderResults();
-  renderRankings();
-  renderSanctions();
-  renderNews();
-  renderVipActivities();
-  renderRegisteredUsers();
-  renderAdmin();
-  renderLiveFeed();
-  updateRoleUI();
-  // ⚠️ saveAll() removido para evitar bucles infinitos con el evento storage
-}
+    // home ranking top5
+    const homeR = document.getElementById('home-ranking');
+    if(homeR){
+      const sorted = [...teams].sort((a,b)=> (b.kills+b.booyahs*3+b.posPoints) - (a.kills+a.booyahs*3+a.posPoints)).slice(0,5);
+      homeR.innerHTML = sorted.map((t,i)=>`
+        <div class="flex items-center justify-between p-2 rounded-lg bg-black/40 border border-white/5">
+          <span class="text-slate-300">#${i+1} ${t.name}</span>
+          <span class="font-black text-emerald-400">${(t.kills||0)+(t.booyahs||0)*3+(t.posPoints||0)}</span>
+        </div>`).join('') || '<p class="text-slate-500">Sin equipos.</p>';
+    }
 
-function renderHome(){
-  const ht = document.getElementById('home-tournaments');
-  if(ht) ht.innerHTML = tournaments.slice(0,4).map(t=>`
-    <div class="p-3 rounded-xl bg-black/40 border border-white/5 flex items-center justify-between gap-2">
-      <div><p class="text-sm font-bold text-white">${t.name}</p><p class="text-[11px] text-slate-400">${fmtDate(t.date)} ${t.time} · ${t.mode} · ${t.category}</p></div>
-      <span class="tag tag-amber">${t.slots} cupos</span>
-    </div>`).join('') || '<p class="text-xs text-slate-500 py-2">Sin torneos creados aún.</p>';
+    // home results
+    const homeRes = document.getElementById('home-results');
+    if(homeRes){
+      homeRes.innerHTML = results.slice(0,4).map(r=>{
+        const team = teams.find(t=>t.id===r.teamId);
+        return `<div class="flex items-center justify-between p-2 rounded-lg bg-black/40 border border-white/5">
+          <span>${team?.name||'—'} (pos ${r.pos})</span><span class="text-emerald-400 font-bold">${r.total} pts</span>
+        </div>`;
+      }).join('') || '<p class="text-slate-500">Sin resultados.</p>';
+    }
 
-  const ranked = [...teams].map(t=>{
-    const pts = results.filter(r=>r.teamId===t.id).reduce((a,r)=>a+r.total,0) + (t.posPoints||0) + (t.kills||0) + (t.booyahs||0)*12;
-    return { ...t, pts };
-  }).sort((a,b)=>b.pts-a.pts).slice(0,5);
-  const hr = document.getElementById('home-ranking');
-  if(hr) hr.innerHTML = ranked.map((t,i)=>`
-    <div class="flex items-center justify-between p-2 rounded-lg bg-black/40 border border-white/5">
-      <span><b class="text-red-400 mr-2">#${i+1}</b>[${t.tag}] ${t.name}</span>
-      <span class="font-black text-emerald-400">${t.pts} pts</span>
-    </div>`).join('') || '<p class="text-xs text-slate-500">Sin equipos.</p>';
+    // home news
+    const homeN = document.getElementById('home-news');
+    if(homeN){
+      homeN.innerHTML = news.slice(0,3).map(n=>`
+        <div class="p-2 rounded-lg bg-black/40 border border-white/5">
+          <p class="font-bold text-white text-[12px]">${n.title}</p>
+          <p class="text-[11px] text-slate-400">${n.category} · ${new Date(n.createdAt).toLocaleString()}</p>
+        </div>`).join('') || '<p class="text-slate-500">Sin noticias.</p>';
+    }
 
-  const hres = document.getElementById('home-results');
-  if(hres) hres.innerHTML = results.slice(0,4).map(r=>{
-    const t = teams.find(x=>x.id===r.teamId);
-    const tour = tournaments.find(x=>x.id===r.tournamentId);
-    return `<div class="p-2 rounded-lg bg-black/40 border border-white/5 flex justify-between">
-      <span>${t?`[${t.tag}] ${t.name}`:'—'} <span class="text-slate-500">· ${tour?tour.name:'Torneo'}</span></span>
-      <span class="text-emerald-400 font-black">${r.total} pts</span>
-    </div>`;
-  }).join('') || '<p class="text-xs text-slate-500">Sin resultados.</p>';
-
-  const hn = document.getElementById('home-news');
-  if(hn) hn.innerHTML = news.slice(0,3).map(n=>`
-    <div class="p-2 rounded-lg bg-black/40 border border-white/5">
-      <p class="text-sm font-bold text-white">${n.title}</p>
-      <p class="text-[11px] text-slate-400">${n.cat} · ${fmtDate(n.createdAt)}</p>
-    </div>`).join('') || '<p class="text-xs text-slate-500">Sin noticias.</p>';
-}
-
-function renderActivities(){
-  const canDel = hasAnyManagerRole();
-  const renderBucket = (list, targetId, label, cls) => {
-    const el = document.getElementById(targetId); if(!el) return;
-    if(list.length===0){ el.innerHTML = '<p class="text-xs text-slate-400 py-2">Sin actividades disponibles.</p>'; return; }
-    el.innerHTML = list.map(act=>{
-      const del = canDel ? `<button onclick="deleteActivity('${act.id}')" class="btn btn-ghost btn-sm text-red-300 border-red-500/30">🗑️</button>` : '';
-      const waBadge = act.groupLink ? `<span class="tag tag-green">📱 WhatsApp</span>` : `<span class="tag tag-slate">Sin grupo</span>`;
-      return `<div class="p-3.5 rounded-xl bg-black/50 border border-white/5 space-y-2 hover:border-red-500/30 transition">
-        <div class="flex items-start justify-between gap-2">
-          <div><p class="font-bold text-sm text-white">${act.title}</p><p class="text-[11px] text-slate-400">${act.date} • ${act.time} • Premio: ${act.prize}</p></div>
-          <span class="tag tag-red shrink-0">${act.fee}</span>
-        </div>
-        <div class="flex items-center justify-between pt-1 gap-2">
-          <div class="flex items-center gap-1.5">
-            <span class="text-[11px] text-slate-400">Inscritos: ${act.enrolledTeams.length}</span>
-            ${waBadge}
+    // activities lists
+    ['RELAMPAGO','TORNEO','XT ENTRENOS'].forEach(pl=>{
+      const id = pl==='RELAMPAGO'?'list-relampago':pl==='TORNEO'?'list-torneo':'list-entrenos';
+      const cId = pl==='RELAMPAGO'?'count-relampago':pl==='TORNEO'?'count-torneo':'count-entrenos';
+      const el = document.getElementById(id);
+      const cEl = document.getElementById(cId);
+      if(!el) return;
+      const list = activities.filter(a=>a.placement===pl);
+      if(cEl) cEl.textContent = `${list.length} ${pl==='XT ENTRENOS'?'entrenos':'salas'}`;
+      el.innerHTML = list.map(a=>`
+        <div class="p-3 rounded-xl bg-black/40 border border-white/5 space-y-2">
+          <div class="flex items-start justify-between gap-2">
+            <p class="font-bold text-white text-sm">${a.title}</p>
+            <span class="tag ${pl==='XT ENTRENOS'?'tag-green':'tag-red'} shrink-0">${a.fee}</span>
           </div>
-          <div class="flex items-center gap-1.5">${del}<button onclick="handleJoinActivity('${act.id}')" class="btn ${cls} btn-sm">${label}</button></div>
-        </div>
-      </div>`;
-    }).join('');
-  };
-  const rel = activities.filter(a=>a.placement==='RELAMPAGO');
-  const tor = activities.filter(a=>a.placement==='TORNEO');
-  const ent = activities.filter(a=>a.placement==='XT ENTRENOS');
-  const cr = document.getElementById('count-relampago'); if(cr) cr.textContent = `${rel.length} salas`;
-  const ct = document.getElementById('count-torneo'); if(ct) ct.textContent = `${tor.length} torneos`;
-  const ce = document.getElementById('count-entrenos'); if(ce) ce.textContent = `${ent.length} entrenos`;
-  renderBucket(rel, 'list-relampago', 'Unirse y Pagar', 'btn-primary');
-  renderBucket(tor, 'list-torneo', 'Unirse y Pagar', 'btn-primary');
-  renderBucket(ent, 'list-entrenos', 'Unirse Gratis', 'btn-green');
-}
+          <p class="text-[11px] text-slate-400">${a.date} · ${a.time} · Premio: ${a.prize}</p>
+          <div class="flex items-center justify-between">
+            <span class="text-[11px] text-slate-400">Inscritos: ${(a.enrolledTeams||[]).length}</span>
+            <button onclick="handleJoinActivity('${a.id}')" class="btn btn-primary btn-sm">Unirme</button>
+          </div>
+        </div>`).join('') || '<p class="text-xs text-slate-500">Sin actividades.</p>';
+    });
 
-function renderTeams(){
-  const canDel = hasAnyManagerRole() || currentAdmin;
-  const sorted = [...teams].sort((a,b)=>{
-    const ptsA = Number(a.posPoints||0)+Number(a.kills||0)+Number(a.booyahs||0)*12;
-    const ptsB = Number(b.posPoints||0)+Number(b.kills||0)+Number(b.booyahs||0)*12;
-    return ptsB - ptsA;
-  });
-  const tbody = document.getElementById('ranking-tbody');
-  if(tbody) tbody.innerHTML = sorted.map((t, idx)=>{
-    const pts = Number(t.posPoints||0)+Number(t.kills||0)+Number(t.booyahs||0)*12;
-    const del = canDel ? `<button onclick="deleteTeam('${t.id}')" class="btn btn-ghost btn-sm text-red-300 border-red-500/30">🗑️</button>` : '';
-    return `<tr>
-      <td class="font-black text-red-400">${idx+1}</td>
-      <td><button onclick="openTeamPortal('${t.id}')" class="font-bold text-white hover:text-red-400 text-left">[${t.tag}] ${t.name}</button></td>
-      <td class="text-center">${t.kills||0}</td>
-      <td class="text-center">${t.booyahs||0}</td>
-      <td class="text-center">${t.posPoints||0}</td>
-      <td class="text-right font-black text-emerald-400">${pts}</td>
-      <td class="text-right">${del}</td>
-    </tr>`;
-  }).join('') || '<tr><td colspan="7" class="text-center text-slate-500 py-4">Sin equipos registrados.</td></tr>';
-}
+    // ranking tbody
+    const rT = document.getElementById('ranking-tbody');
+    if(rT){
+      const sorted = [...teams].sort((a,b)=> (b.kills+b.booyahs*3+b.posPoints) - (a.kills+a.booyahs*3+a.posPoints));
+      rT.innerHTML = sorted.map((t,i)=>{
+        const total = (t.kills||0)+(t.booyahs||0)*3+(t.posPoints||0);
+        const canDel = hasAnyManagerRole() || currentAdmin;
+        return `<tr>
+          <td>${i+1}</td>
+          <td><button onclick="openTeamPortal('${t.id}')" class="font-bold text-white hover:text-red-400">[${t.tag||'—'}] ${t.name}</button></td>
+          <td class="text-center">${t.kills||0}</td>
+          <td class="text-center">${t.booyahs||0}</td>
+          <td class="text-center">${t.posPoints||0}</td>
+          <td class="text-right font-black text-emerald-400">${total}</td>
+          <td class="text-right">${canDel?`<button onclick="deleteTeam('${t.id}')" class="btn btn-ghost btn-sm text-red-300 border-red-500/30">🗑️</button>`:''}</td>
+        </tr>`;
+      }).join('') || '<tr><td colspan="7" class="text-center text-slate-500 py-4">Sin equipos.</td></tr>';
+    }
 
-function renderPlayers(){
-  const tbody = document.getElementById('players-tbody'); if(!tbody) return;
-  tbody.innerHTML = players.map(p=>{
-    const team = teams.find(t=>t.id===p.teamId);
-    const verifyBtn = (!p.verified && currentAdmin) ? `<button onclick="verifyPlayer('${p.id}')" class="btn btn-green btn-sm">Verificar</button>` : (p.verified ? '<span class="tag tag-green">Verificado</span>' : '<span class="tag tag-slate">Pendiente</span>');
-    return `<tr>
-      <td class="font-bold text-white">${p.name}</td>
-      <td>${team?`[${team.tag}] ${team.name}`:'—'}</td>
-      <td class="text-amber-400">${p.nick}</td>
-      <td class="font-mono text-slate-400">${p.ffId}</td>
-      <td>${p.role}</td>
-      <td>${p.country}</td>
-      <td class="text-right">${verifyBtn}</td>
-    </tr>`;
-  }).join('') || '<tr><td colspan="7" class="text-center text-slate-500 py-4">Sin jugadores registrados.</td></tr>';
-}
+    // teams count
+    const teamsCount = document.getElementById('teams-count'); if(teamsCount) teamsCount.textContent = `${teams.length} equipos`;
 
-function renderTournaments(){
-  const el = document.getElementById('tournaments-list'); if(!el) return;
-  if(tournaments.length===0){ el.innerHTML = '<p class="p-4 text-xs text-slate-500">Sin torneos creados.</p>'; return; }
-  el.innerHTML = tournaments.map(t=>`
-    <div class="p-4 flex flex-wrap items-center justify-between gap-2">
-      <div>
-        <p class="font-bold text-white">${t.name}</p>
-        <p class="text-[11px] text-slate-400">${fmtDate(t.date)} ${t.time} · ${t.mode} · ${t.category} · ${t.slots} cupos</p>
-        <p class="text-[11px] text-slate-500 mt-0.5">${t.rules||''}</p>
-      </div>
-      <div class="flex gap-1.5">
-        <button onclick="requestJoinTournament('${t.id}', '${teams[0]?.id||''}')" class="btn btn-gold btn-sm">Solicitar unirse</button>
-      </div>
-    </div>`).join('');
-}
+    // pl-team select
+    const plTeam = document.getElementById('pl-team');
+    if(plTeam){
+      plTeam.innerHTML = '<option value="">Selecciona...</option>' + teams.map(t=>`<option value="${t.id}">${t.name}</option>`).join('');
+    }
 
-function renderResults(){
-  const tbody = document.getElementById('results-tbody'); if(!tbody) return;
-  tbody.innerHTML = results.map(r=>{
-    const t = teams.find(x=>x.id===r.teamId);
-    const tour = tournaments.find(x=>x.id===r.tournamentId);
-    return `<tr>
-      <td>${tour?tour.name:'—'}</td>
-      <td class="font-bold text-white">${t?`[${t.tag}] ${t.name}`:'—'}</td>
-      <td class="text-amber-400">#${r.pos}</td>
-      <td>${r.kills}</td>
-      <td>${r.posPts}</td>
-      <td>${r.pos===1?'🏆':'—'}</td>
-      <td class="text-emerald-400 font-black">${r.total}</td>
-      <td class="text-slate-400 text-[11px]">${r.notes||'—'}</td>
-    </tr>`;
-  }).join('') || '<tr><td colspan="8" class="text-center text-slate-500 py-4">Sin resultados registrados.</td></tr>';
-}
+    // players count
+    const playersCount = document.getElementById('players-count'); if(playersCount) playersCount.textContent = `${players.length} jugadores`;
 
-function renderRankings(){
-  const tbody = document.getElementById('rankings-tbody'); if(!tbody) return;
-  const ft = document.getElementById('filter-tournament');
-  const fc = document.getElementById('filter-country');
-  const filterTour = ft?.value || '';
-  const filterCountry = fc?.value || '';
-  let list = [...teams];
-  if(filterCountry) list = list.filter(t=>t.country===filterCountry);
-  const ranked = list.map(t=>{
-    const tRes = results.filter(r=>r.teamId===t.id && (!filterTour || r.tournamentId===filterTour));
-    const kills = tRes.reduce((a,r)=>a+r.kills,0);
-    const booyahs = tRes.filter(r=>r.pos===1).length;
-    const pts = tRes.reduce((a,r)=>a+r.total,0);
-    return { ...t, matches:tRes.length, kills, booyahs, pts };
-  }).sort((a,b)=>b.pts-a.pts);
-  tbody.innerHTML = ranked.map((t,i)=>`
-    <tr>
-      <td class="font-black text-red-400">${i+1}</td>
-      <td class="font-bold text-white">[${t.tag}] ${t.name}</td>
-      <td>${t.country||'—'}</td>
-      <td>${t.matches}</td>
-      <td>${t.kills}</td>
-      <td>${t.booyahs}</td>
-      <td class="text-right font-black text-emerald-400">${t.pts}</td>
-    </tr>`).join('') || '<tr><td colspan="7" class="text-center text-slate-500 py-4">Sin datos de ranking.</td></tr>';
-}
+    // players tbody
+    const pT = document.getElementById('players-tbody');
+    if(pT){
+      pT.innerHTML = players.map(p=>{
+        const team = teams.find(t=>t.id===p.teamId);
+        return `<tr>
+          <td class="font-bold text-white">${p.name||'—'}</td>
+          <td>${team?.name||'—'}</td>
+          <td class="text-emerald-400 font-mono">${p.nick||'—'}</td>
+          <td class="font-mono text-slate-400">${p.ffId||'—'}</td>
+          <td>${p.role||'—'}</td>
+          <td>${p.country||'—'}</td>
+          <td class="text-right">${p.verified?'<span class="tag tag-green">Verificado</span>':`<button onclick="verifyPlayer('${p.id}')" class="btn btn-primary btn-sm">Verificar</button>`}</td>
+        </tr>`;
+      }).join('') || '<tr><td colspan="7" class="text-center text-slate-500 py-4">Sin jugadores.</td></tr>';
+    }
 
-function renderSanctions(){
-  const el = document.getElementById('sanctions-list'); if(!el) return;
-  if(sanctions.length===0){ el.innerHTML = '<p class="p-4 text-xs text-slate-500">Sin sanciones registradas.</p>'; return; }
-  el.innerHTML = sanctions.map(s=>{
-    const t = teams.find(x=>x.id===s.teamId);
-    const resolveBtn = (s.status==='Apelada' && currentAdmin) ? `<button onclick="resolveAppeal('${s.id}')" class="btn btn-green btn-sm">Resolver</button>` : '';
-    return `<div class="p-4 flex flex-wrap items-center justify-between gap-2">
-      <div>
-        <p class="font-bold text-white">${t?`[${t.tag}] ${t.name}`:'—'}</p>
-        <p class="text-[11px] text-slate-400">${s.reason}</p>
-        <p class="text-[11px] text-slate-500">Evidencia: ${s.evidence||'—'}</p>
-      </div>
-      <div class="flex items-center gap-2">
-        <span class="tag ${s.status==='Activa'?'tag-red':s.status==='Cumplida'?'tag-green':'tag-amber'}">${s.status}</span>
-        ${resolveBtn}
-      </div>
-    </div>`;
-  }).join('');
-}
+    // tournaments count
+    const tCount = document.getElementById('tournaments-count'); if(tCount) tCount.textContent = `${tournaments.length} torneos`;
 
-function renderNews(){
-  const el = document.getElementById('news-list'); if(!el) return;
-  if(news.length===0){ el.innerHTML = '<p class="text-xs text-slate-500 py-2">Sin noticias publicadas.</p>'; return; }
-  el.innerHTML = news.map(n=>`
-    <div class="panel p-4 space-y-1">
-      <div class="flex items-center justify-between">
-        <p class="font-bold text-white">${n.title}</p>
-        <span class="tag tag-slate">${n.cat}</span>
-      </div>
-      <p class="text-xs text-slate-300">${n.body}</p>
-      <p class="text-[10px] text-slate-500">${fmtDate(n.createdAt)}</p>
-    </div>`).join('');
-}
+    // tournaments list
+    const tList = document.getElementById('tournaments-list');
+    if(tList){
+      tList.innerHTML = tournaments.map(t=>`
+        <div class="p-4 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <p class="font-bold text-white">${t.name}</p>
+            <p class="text-[11px] text-slate-400">${t.date} ${t.time} · ${t.mode} · ${t.slots} cupos · ${t.category}</p>
+          </div>
+          <span class="tag tag-amber">${t.mode}</span>
+        </div>`).join('') || '<p class="p-4 text-slate-500 text-xs">Sin torneos.</p>';
+    }
 
-function renderAdmin(){
-  const locked = document.getElementById('admin-locked');
-  const unlocked = document.getElementById('admin-unlocked');
-  if(!locked||!unlocked) return;
-  if(currentAdmin){
-    locked.classList.add('hidden'); unlocked.classList.remove('hidden');
-    const badge = document.getElementById('admin-role-badge'); if(badge) badge.textContent = currentAdmin.role;
-    const at = document.getElementById('admin-stat-teams'); if(at) at.textContent = teams.length;
-    const ap = document.getElementById('admin-stat-players'); if(ap) ap.textContent = players.length;
-    const ato = document.getElementById('admin-stat-tournaments'); if(ato) ato.textContent = tournaments.length;
+    // res-tournament & res-team selects
+    const resT = document.getElementById('res-tournament');
+    if(resT){ resT.innerHTML = '<option value="">Selecciona...</option>' + tournaments.map(t=>`<option value="${t.id}">${t.name}</option>`).join(''); }
+    const resTeam = document.getElementById('res-team');
+    if(resTeam){ resTeam.innerHTML = '<option value="">Selecciona...</option>' + teams.map(t=>`<option value="${t.id}">${t.name}</option>`).join(''); }
+
+    // results tbody
+    const resBody = document.getElementById('results-tbody');
+    if(resBody){
+      resBody.innerHTML = results.map(r=>{
+        const tour = tournaments.find(t=>t.id===r.tournamentId);
+        const team = teams.find(t=>t.id===r.teamId);
+        return `<tr>
+          <td>${tour?.name||'—'}</td>
+          <td class="font-bold text-white">${team?.name||'—'}</td>
+          <td>${r.pos}</td>
+          <td>${r.kills}</td>
+          <td>${r.posPoints}</td>
+          <td>${r.booyah?'✅':''}</td>
+          <td class="text-emerald-400 font-black">${r.total}</td>
+          <td class="text-slate-400 text-[11px]">${r.notes||''}</td>
+        </tr>`;
+      }).join('') || '<tr><td colspan="8" class="text-center text-slate-500 py-4">Sin resultados.</td></tr>';
+    }
+
+    // rankings tbody
+    const rkT = document.getElementById('rankings-tbody');
+    if(rkT){
+      const sorted = [...teams].sort((a,b)=> (b.kills+b.booyahs*3+b.posPoints) - (a.kills+a.booyahs*3+a.posPoints));
+      rkT.innerHTML = sorted.map((t,i)=>{
+        const total = (t.kills||0)+(t.booyahs||0)*3+(t.posPoints||0);
+        const matches = results.filter(r=>r.teamId===t.id).length;
+        return `<tr>
+          <td>${i+1}</td>
+          <td class="font-bold text-white">${t.name}</td>
+          <td>${t.country||'—'}</td>
+          <td>${matches}</td>
+          <td>${t.kills||0}</td>
+          <td>${t.booyahs||0}</td>
+          <td class="text-right font-black text-emerald-400">${total}</td>
+        </tr>`;
+      }).join('') || '<tr><td colspan="7" class="text-center text-slate-500 py-4">Sin datos.</td></tr>';
+    }
+
+    // sanctions
+    const sanCount = document.getElementById('sanctions-count'); if(sanCount) sanCount.textContent = `${sanctions.length} sanciones`;
+    const sanTeamSel = document.getElementById('san-team');
+    if(sanTeamSel){ sanTeamSel.innerHTML = '<option value="">Selecciona...</option>' + teams.map(t=>`<option value="${t.id}">${t.name}</option>`).join(''); }
+    const sanList = document.getElementById('sanctions-list');
+    if(sanList){
+      sanList.innerHTML = sanctions.map(s=>{
+        const team = teams.find(t=>t.id===s.teamId);
+        return `<div class="p-4 flex flex-wrap items-center justify-between gap-2">
+          <div>
+            <p class="font-bold text-white">${team?.name||'—'} · <span class="text-red-400">${s.status}</span></p>
+            <p class="text-[11px] text-slate-400">${s.reason} · ${new Date(s.createdAt).toLocaleString()}</p>
+            ${s.evidence?`<a href="${s.evidence}" target="_blank" class="text-[11px] text-emerald-400 underline">Ver evidencia</a>`:''}
+          </div>
+          <span class="tag tag-slate">${s.status}</span>
+        </div>`;
+      }).join('') || '<p class="p-4 text-slate-500 text-xs">Sin sanciones.</p>';
+    }
+
+    // news list
+    const newsList = document.getElementById('news-list');
+    if(newsList){
+      newsList.innerHTML = news.map(n=>`
+        <div class="panel p-4 space-y-1">
+          <div class="flex items-center justify-between"><span class="tag tag-slate">${n.category}</span><span class="text-[10px] text-slate-500">${new Date(n.createdAt).toLocaleString()}</span></div>
+          <p class="font-black text-white">${n.title}</p>
+          <p class="text-xs text-slate-300">${n.body}</p>
+        </div>`).join('') || '<p class="text-slate-500 text-xs">Sin noticias.</p>';
+    }
+
+    // admin
+    const adminLocked = document.getElementById('admin-locked');
+    const adminUnlocked = document.getElementById('admin-unlocked');
+    if(adminLocked && adminUnlocked){
+      if(currentAdmin){ adminLocked.classList.add('hidden'); adminUnlocked.classList.remove('hidden'); }
+      else { adminUnlocked.classList.add('hidden'); adminLocked.classList.remove('hidden'); }
+    }
+    const aRole = document.getElementById('admin-role-badge'); if(aRole) aRole.textContent = currentAdmin?currentAdmin.role:'—';
+    const aST = document.getElementById('admin-stat-teams'); if(aST) aST.textContent = teams.length;
+    const aSP = document.getElementById('admin-stat-players'); if(aSP) aSP.textContent = players.length;
+    const aSTo = document.getElementById('admin-stat-tournaments'); if(aSTo) aSTo.textContent = tournaments.length;
 
     const pending = document.getElementById('admin-pending-players');
     if(pending){
@@ -2038,95 +2040,38 @@ function renderAdmin(){
       pending.innerHTML = unverified.length ? unverified.map(p=>`
         <div class="flex items-center justify-between p-2 rounded-lg bg-black/40 border border-white/5">
           <span>${p.nick} · ${p.name}</span>
-          <button onclick="verifyPlayer('${p.id}')" class="btn btn-green btn-sm">Verificar</button>
-        </div>`).join('') : '<p class="text-slate-500">Sin jugadores pendientes.</p>';
+          <button onclick="verifyPlayer('${p.id}')" class="btn btn-primary btn-sm">Verificar</button>
+        </div>`).join('') : '<p class="text-slate-500">Sin pendientes.</p>';
     }
 
-    const reqs = document.getElementById('admin-tournament-requests');
-    if(reqs){
-      reqs.innerHTML = tournamentRequests.length ? tournamentRequests.map(r=>{
-        const t = tournaments.find(x=>x.id===r.tournamentId);
-        const tm = teams.find(x=>x.id===r.teamId);
-        return `<div class="flex items-center justify-between p-2 rounded-lg bg-black/40 border border-white/5 gap-2">
-          <span class="text-[11px]">${tm?`[${tm.tag}] ${tm.name}`:'—'} → ${t?t.name:'—'}</span>
-          <div class="flex items-center gap-1.5">
-            <span class="tag ${r.status==='Aprobado'?'tag-green':r.status==='Rechazado'?'tag-red':'tag-amber'}">${r.status}</span>
-            ${r.status==='Pendiente'?`<button onclick="approveTournamentRequest('${r.id}','Aprobado')" class="btn btn-green btn-sm">✓</button><button onclick="approveTournamentRequest('${r.id}','Rechazado')" class="btn btn-ghost btn-sm text-red-300 border-red-500/30">✕</button>`:''}
-          </div>
-        </div>`;
-      }).join('') : '<p class="text-slate-500">Sin solicitudes.</p>';
+    const treq = document.getElementById('admin-tournament-requests');
+    if(treq){
+      treq.innerHTML = tournaments.length ? tournaments.map(t=>`
+        <div class="flex items-center justify-between p-2 rounded-lg bg-black/40 border border-white/5">
+          <span>${t.name}</span><span class="tag tag-amber">${t.mode}</span>
+        </div>`).join('') : '<p class="text-slate-500">Sin torneos.</p>';
     }
-  } else {
-    locked.classList.remove('hidden'); unlocked.classList.add('hidden');
+
+    // live feed
+    const lf = document.getElementById('live-feed-list');
+    if(lf){ lf.innerHTML = liveFeed.map(f=>`<p class="text-slate-300">${f}</p>`).join(''); }
+
+    // direct regs
+    renderDirectRegistrations();
+    renderRegisteredUsers();
+    renderVipActivities();
+    renderChatRooms();
+  }catch(err){
+    console.error('renderAll error', err);
   }
 }
-
-function renderLiveFeed(){
-  const el = document.getElementById('live-feed-list'); if(!el) return;
-  el.innerHTML = liveFeed.map(f=>`<div class="p-2 rounded-lg bg-black/40 border border-white/5 text-slate-300">${f}</div>`).join('');
-}
-
-/* ===================== CREATOR COMMANDS ===================== */
-function runCreatorCommand(cmd){
-  if(!hasCreatorOrAdminRole()){ showToast('Solo CREADOR/ADMIN.', 'error'); return; }
-  const clean = String(cmd||'').trim().toUpperCase();
-  if(!clean){ showToast('Escribe un comando.', 'error'); return; }
-  const input = document.getElementById('creator-cmd-input'); if(input) input.value='';
-
-  if(clean==='TORNEO' || clean==='RELAMPAGO' || clean==='XT ENTRENOS'){
-    switchTab('activities');
-    const sel = document.getElementById('act-placement');
-    if(sel){ sel.value = clean; handlePlacementChange(clean); }
-    showToast(`Modo ${clean} activado en creador.`);
-    return;
-  }
-  pushFeed(`ejecutó comando creador: "${clean}".`, { requireRank:true, includeRankTag:true });
-  renderAll();
-  showToast('Comando ejecutado.');
-}
-
-/* ============================================================
-   ACTUALIZACIÓN EN TIEMPO REAL (MULTI-PESTAÑA)
-   ============================================================ */
-window.addEventListener('storage', function(e) {
-  if (!e.key || !e.key.startsWith('nt_')) return;
-  const key = e.key.replace('nt_', '');
-  
-  try {
-    if (key === 'teams') teams = JSON.parse(e.newValue);
-    if (key === 'activities') activities = JSON.parse(e.newValue);
-    if (key === 'vipActivities') vipActivities = JSON.parse(e.newValue);
-    if (key === 'registeredUsers') registeredUsers = JSON.parse(e.newValue);
-    if (key === 'liveFeed') liveFeed = JSON.parse(e.newValue);
-    if (key === 'chatRooms') chatRooms = JSON.parse(e.newValue);
-    if (key === 'players') players = JSON.parse(e.newValue);
-    if (key === 'tournaments') tournaments = JSON.parse(e.newValue);
-    if (key === 'results') results = JSON.parse(e.newValue);
-    if (key === 'sanctions') sanctions = JSON.parse(e.newValue);
-    if (key === 'news') news = JSON.parse(e.newValue);
-    if (key === 'tournamentRequests') tournamentRequests = JSON.parse(e.newValue);
-    if (key === 'directRegistrations') directRegistrations = JSON.parse(e.newValue);
-    if (key === 'session') currentAdmin = JSON.parse(e.newValue);
-
-    if (['teams','activities','vipActivities','registeredUsers','liveFeed','chatRooms','players','tournaments','results','sanctions','news','tournamentRequests','directRegistrations','session'].includes(key)) {
-      renderHome(); renderActivities(); renderDirectRegistrations(); renderTeams(); renderPlayers();
-      renderTournaments(); renderResults(); renderRankings(); renderSanctions(); renderNews();
-      renderVipActivities(); renderRegisteredUsers(); renderAdmin(); renderLiveFeed(); renderChatRooms();
-      updateRoleUI();
-      showToast(`🔄 Actualización en tiempo real: ${key}`, 'success');
-    }
-  } catch (error) {
-    console.warn('Error al procesar actualización en tiempo real:', error);
-  }
-});
 
 /* ===================== INIT ===================== */
-document.addEventListener('DOMContentLoaded', ()=>{
+document.addEventListener('DOMContentLoaded', () => {
   updateRoleUI();
   renderAll();
   renderChatRooms();
 });
 </script>
-
 </body>
 </html>

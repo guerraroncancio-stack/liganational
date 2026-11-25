@@ -202,9 +202,7 @@
 <div id="view-lobby" class="fixed inset-0 z-50 flex items-center justify-center p-4">
   <div class="relative w-full max-w-xl text-center space-y-7 p-8 sm:p-12 rounded-3xl panel panel-red pulse-glow">
     <div class="flex justify-center">
-      <!-- ============================================================
-           NUEVO LOGO ESTILO BANDERA (LOBBY)
-           ============================================================ -->
+      <!-- LOGO ESTILO BANDERA (LOBBY) -->
       <div class="flag-glow w-40 sm:w-48">
         <div class="flag-shield">
           <span class="flag-shield-star">★</span>
@@ -239,9 +237,7 @@
     <div class="max-w-7xl mx-auto px-4 sm:px-6 pt-3 pb-3 space-y-3">
       <div class="flex flex-wrap items-center justify-between gap-3">
         <div class="flex items-center gap-3">
-          <!-- ============================================================
-               NUEVO LOGO ESTILO BANDERA (HEADER)
-               ============================================================ -->
+          <!-- LOGO ESTILO BANDERA (HEADER) -->
           <div class="flag-glow w-12 h-16 shrink-0">
             <div class="flag-shield">
               <span class="flag-shield-star text-[8px] top-[3%]">★</span>
@@ -256,6 +252,8 @@
                 NATIONAL <span class="text-red-500">TOURNAMENTS</span>
               </h1>
               <span id="role-badge" class="stat-pill">Público</span>
+              <!-- Indicador de conexión en vivo -->
+              <span class="stat-pill text-emerald-400 border-emerald-500/30"><span class="dot" style="background:#10b981; box-shadow:0 0 8px #10b981;"></span> En vivo</span>
             </div>
             <div class="flex items-center gap-2 text-[10px] tracking-[0.15em] text-slate-400 font-bold uppercase mt-0.5">
               <span>Free Fire · LATAM</span><span class="text-red-500">•</span><span class="text-red-400">Plataforma competitiva</span>
@@ -385,7 +383,7 @@
           </div>
         </section>
 
-        <!-- NUEVO PANEL: REGISTROS DIRECTOS CON WHATSAPP -->
+        <!-- PANEL: REGISTROS DIRECTOS CON WHATSAPP -->
         <section class="panel panel-red p-5 space-y-3">
           <div class="flex flex-wrap items-center justify-between gap-2 border-b border-white/5 pb-3">
             <div>
@@ -1814,7 +1812,7 @@ function renderAll(){
   renderAdmin();
   renderLiveFeed();
   updateRoleUI();
-  saveAll();
+  // ⚠️ saveAll() removido para evitar bucles infinitos con el evento storage
 }
 
 function renderHome(){
@@ -2086,6 +2084,41 @@ function runCreatorCommand(cmd){
   renderAll();
   showToast('Comando ejecutado.');
 }
+
+/* ============================================================
+   ACTUALIZACIÓN EN TIEMPO REAL (MULTI-PESTAÑA)
+   ============================================================ */
+window.addEventListener('storage', function(e) {
+  if (!e.key || !e.key.startsWith('nt_')) return;
+  const key = e.key.replace('nt_', '');
+  
+  try {
+    if (key === 'teams') teams = JSON.parse(e.newValue);
+    if (key === 'activities') activities = JSON.parse(e.newValue);
+    if (key === 'vipActivities') vipActivities = JSON.parse(e.newValue);
+    if (key === 'registeredUsers') registeredUsers = JSON.parse(e.newValue);
+    if (key === 'liveFeed') liveFeed = JSON.parse(e.newValue);
+    if (key === 'chatRooms') chatRooms = JSON.parse(e.newValue);
+    if (key === 'players') players = JSON.parse(e.newValue);
+    if (key === 'tournaments') tournaments = JSON.parse(e.newValue);
+    if (key === 'results') results = JSON.parse(e.newValue);
+    if (key === 'sanctions') sanctions = JSON.parse(e.newValue);
+    if (key === 'news') news = JSON.parse(e.newValue);
+    if (key === 'tournamentRequests') tournamentRequests = JSON.parse(e.newValue);
+    if (key === 'directRegistrations') directRegistrations = JSON.parse(e.newValue);
+    if (key === 'session') currentAdmin = JSON.parse(e.newValue);
+
+    if (['teams','activities','vipActivities','registeredUsers','liveFeed','chatRooms','players','tournaments','results','sanctions','news','tournamentRequests','directRegistrations','session'].includes(key)) {
+      renderHome(); renderActivities(); renderDirectRegistrations(); renderTeams(); renderPlayers();
+      renderTournaments(); renderResults(); renderRankings(); renderSanctions(); renderNews();
+      renderVipActivities(); renderRegisteredUsers(); renderAdmin(); renderLiveFeed(); renderChatRooms();
+      updateRoleUI();
+      showToast(`🔄 Actualización en tiempo real: ${key}`, 'success');
+    }
+  } catch (error) {
+    console.warn('Error al procesar actualización en tiempo real:', error);
+  }
+});
 
 /* ===================== INIT ===================== */
 document.addEventListener('DOMContentLoaded', ()=>{
